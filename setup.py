@@ -1,0 +1,30 @@
+from setuptools import setup
+
+setup(
+    install_requires=[
+        "pytest",
+        "pytest-dependency",
+        "pytest-drop-dup-tests",
+        "pytest-playwright",
+        "pytest-rerunfailures",
+        "allure-pytest",
+        "pytest-xdist",
+        "pytest-timeout",
+        "waiter",
+        "pyyaml",
+        "python-benedict",
+        "python_log_indenter",
+        "pydantic",
+        "requests>=2.1.0",
+        "boto3",
+        "botocore",
+        "deepdiff",
+        "launchdarkly-server-sdk",
+        "wrapt",
+        "PyHamcrest",
+        "pytest-lazy-fixtures",
+        "appium-python-client",
+        "phx-class-registry",
+        "selenium==4.25.0"
+    ]
+)
