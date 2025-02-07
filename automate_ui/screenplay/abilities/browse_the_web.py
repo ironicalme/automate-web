@@ -29,7 +29,7 @@ class BrowseTheWeb:
 
     @staticmethod
     def using_chromium(playwright) -> "BrowseTheWeb":
-        browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch()
         return BrowseTheWeb(browser)
 
     def forget(self) -> None:
