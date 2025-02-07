@@ -37,28 +37,29 @@ class User:
     frequent_shopper: Optional[bool] = False
 
 
-def get_user(**specs) -> User:
-    default_user = User(
-        personal_info=PersonalInformation(),
-        address=Address(),
-        birth_details=BirthDetails()
-    )
+    def get_user(**specs) -> "User":
+        default_user = User(
+            personal_info=PersonalInformation(),
+            address=Address(),
+            birth_details=BirthDetails()
+        )
 
-    if "address" in specs and isinstance(specs["address"], dict):
-        default_user = replace(default_user, address=replace(default_user.address, **specs["address"]))
-        del specs["address"]
+        if "address" in specs and isinstance(specs["address"], dict):
+            default_user = replace(default_user, address=replace(default_user.address, **specs["address"]))
+            del specs["address"]
 
-    if "personal_info" in specs and isinstance(specs["personal_info"], dict):
-        default_user = replace(default_user, personal_info=replace(default_user.personal_info, **specs["personal_info"]))
-        del specs["personal_info"]
+        if "personal_info" in specs and isinstance(specs["personal_info"], dict):
+            default_user = replace(default_user, personal_info=replace(default_user.personal_info, **specs["personal_info"]))
+            del specs["personal_info"]
 
-    if "birth_details" in specs and isinstance(specs["birth_details"], dict):
-        default_user = replace(default_user, birth_details=replace(default_user.birth_details, **specs["birth_details"]))
-        del specs["birth_details"]
+        if "birth_details" in specs and isinstance(specs["birth_details"], dict):
+            default_user = replace(default_user, birth_details=replace(default_user.birth_details, **specs["birth_details"]))
+            del specs["birth_details"]
 
-    return replace(default_user, **specs)
+        return replace(default_user, **specs)
 
 
+@dataclass
 class PersonalInformationFactory(factory.Factory):
     class Meta:
         model = PersonalInformation
@@ -68,6 +69,7 @@ class PersonalInformationFactory(factory.Factory):
     email = factory.Faker("email")
 
 
+@dataclass
 class AddressFactory(factory.Factory):
     class Meta:
         model = Address
@@ -79,6 +81,7 @@ class AddressFactory(factory.Factory):
     zip_code = factory.Faker("zipcode")
 
 
+@dataclass
 class BirthDetailsFactory(factory.Factory):
     class Meta:
         model = BirthDetails
@@ -87,6 +90,7 @@ class BirthDetailsFactory(factory.Factory):
     birth_place = factory.Faker("city")
 
 
+@dataclass
 class UserFactory(factory.Factory):
     class Meta:
         model = User

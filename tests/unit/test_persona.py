@@ -1,10 +1,11 @@
 # import pytest
-from automate_ui.screenplay.persona import User, get_user, UserFactory
+from automate_ui.screenplay.persona import User, UserFactory
 
 
 def test_generate_random_user():
     """Test that get_user() generates a random user with default values."""
-    user = get_user()
+    user = User.get_user()
+    print(f"{user}")
     assert user.personal_info.first_name
     assert user.address.country == "US"
     assert isinstance(user.frequent_shopper, bool)
@@ -12,13 +13,15 @@ def test_generate_random_user():
 
 def test_generate_user_with_specs():
     """Test that get_user() correctly overrides specified values."""
-    user = get_user(frequent_shopper=True, address=UserFactory().address)
+    user = User.get_user(frequent_shopper=True, address={"country": "CA"})
+    print(f"{user}")
     assert user.frequent_shopper is True
-    assert user.address
+    assert user.address.country=="CA"
 
 
 def test_generate_user_with_factory():
     """Test that UserFactory generates a random user."""
-    user: User = UserFactory()
+    user: User = UserFactory(address__country="Canada")
+    print(f"{user}")
     assert user.personal_info.first_name
-    assert user.address.country
+    assert user.address.country == "Canada"
