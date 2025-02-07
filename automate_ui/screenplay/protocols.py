@@ -2,6 +2,8 @@ from typing import Any
 
 from typing_extensions import Protocol, runtime_checkable
 
+from automate_ui.screenplay.actor import Actor
+
 
 @runtime_checkable
 class Answerable(Protocol):

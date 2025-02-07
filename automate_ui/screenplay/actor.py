@@ -5,7 +5,7 @@ from typing import List, Type, Union, TypeVar, TYPE_CHECKING
 from allure_commons._allure import StepContext
 
 from automate_ui.screenplay.narrator import Narrator
-from .exceptions import UnableToPerform
+from .exceptions import UnableToPerformError
 from .protocols import Forgettable, Performable, Describable
 
 if TYPE_CHECKING:
@@ -64,7 +64,7 @@ class Actor:
         for a in self.abilities:
             if isinstance(a, ability):
                 return a
-        raise UnableToPerform(f"{self} does not have the Ability to {ability}")
+        raise UnableToPerformError(f"{self} does not have the Ability to {ability}")
 
     def has_ability(self, ability: Type[T_Ability]) -> bool:
         for a in self.abilities:

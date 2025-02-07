@@ -8,9 +8,9 @@ class BrowseTheWeb:
     Gives an actor the ability to use a playwright browser
 
     playwright = sync_playwright().start()
-    james = Actor("james")
-    james.add_ability(BrowseTheWeb.using_chromium(playwright))
-    page = james.get_ability(BrowseTheWeb).current_page
+    don = Actor("Don")
+    don.add_ability(BrowseTheWeb.using_chromium(playwright))
+    page = don.get_ability(BrowseTheWeb).current_page
     """
 
     def __init__(self, browser: Browser) -> None:
