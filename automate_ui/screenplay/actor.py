@@ -1,8 +1,5 @@
 from __future__ import annotations
-import copy
 from typing import List, Type, Union, TypeVar, TYPE_CHECKING
-
-from allure_commons._allure import StepContext
 
 from automate_ui.screenplay.narrator import Narrator
 from .exceptions import UnableToPerformError
@@ -17,27 +14,6 @@ T_Ability = TypeVar("T_Ability", bound=Forgettable)
 T_Persona = Union[
     "User",
     None]
-
-
-def _generate_allure_params(task: Performable) -> dict:
-    """
-    Generates a dictionary of params to log in allure reports.
-    Fetches all non-private/protected attributes from a task.
-    Converts all values into JSON serializable format (strings).
-
-    Note: This requires tasks to be responsible for implementing a __str__ method to support allure logging.
-    Note: Only logs params for core screenplay tasks.
-    """
-    if "apps" in task.__module__:
-        return {}
-    params = copy.deepcopy(task.__dict__)
-    json_serializable_params = {
-        key: str(value)
-        for key, value
-        in params.items()
-        if not key.startswith("_")
-    }
-    return json_serializable_params
 
 
 class Actor:
@@ -80,8 +56,6 @@ class Actor:
         for task in tasks:
             if isinstance(task, Describable):
                 self.narrate(f"{self.name} {task.describe()}")
-            title = f"[{self.narrator.logger.name}] {str(type(task).__name__)}"
-            with StepContext(title=title, params=_generate_allure_params(task)):
                 task.perform(self)
 
     def cleanup(self) -> None:

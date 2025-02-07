@@ -4,14 +4,15 @@ import pytest
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
 from automate_ui.screenplay.actor import Actor
 from automate_ui.screenplay.persona import User
-from playwright._impl._api_structures import ViewportSize
+# from playwright._impl._api_structures import ViewportSize
+
 
 @pytest.fixture(scope='class')
 def actor_factory():
     def generate_actor(
         name: str,
         abilities,
-        persona: Optional[Union["User"]] = None, # Add more Personas as required
+        persona: Optional[Union["User"]] = None,  # Add more Personas as required
         timeout: Optional[int] = 1000 * 60
     ) -> Actor:
         actor = Actor(name=name)

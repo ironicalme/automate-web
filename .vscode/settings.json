@@ -26,14 +26,12 @@
     "python.testing.pytestEnabled": true,
     "python.testing.cwd": "${workspaceFolder}",
     "python.testing.pytestArgs": [
-        "--target-env=develop",
         "--cache-clear",
         "--dist=loadfile",
-        "--output=./playwright-test-failures",
+        "--output=./test-failures",
         "--screenshot=only-on-failure",
         "--video=retain-on-failure",
-        "-svv",
-        "--mobile-platform=android"
+        "-svv"
     ],
     "makefile.configureOnOpen": false
 }
