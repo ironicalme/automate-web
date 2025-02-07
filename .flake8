@@ -1,0 +1,10 @@
+[flake8]
+ignore =
+    E501  # Line too long
+    D401  # First line should be in imperative mood
+    D107  # Missing docstring in __init__
+    D100  # Missing docstring in public module
+    D101  # Missing docstring in public class
+    D102  # Missing docstring in public method
+    W503  # Line break before binary operator
+    E203  # Whitespace before ':'
