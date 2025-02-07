@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "automate-ui"
+version = "0.1.0"
+description = "A framework to automate Web and Mobile UI"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Kartik Muchandi" }]
+license = { text = "MIT" }
+keywords = ["automation", "UI", "testing"]
+dependencies = [
+    "pytest",
+    "pytest-dependency",
+    "pytest-drop-dup-tests",
+    "pytest-playwright",
+    "pytest-rerunfailures",
+    "allure-pytest",
+    "pytest-xdist",
+    "pytest-timeout",
+    "waiter",
+    "pyyaml",
+    "python-benedict",
+    "python_log_indenter",
+    "pydantic",
+    "requests>=2.1.0",
+    "boto3",
+    "botocore",
+    "deepdiff",
+    "launchdarkly-server-sdk",
+    "wrapt",
+    "PyHamcrest",
+    "pytest-lazy-fixtures",
+    "appium-python-client",
+    "phx-class-registry",
+    "selenium",
+    "Faker",
+    "factory_boy"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "flake8",
+    "pep8-naming",
+    "flake8-bugbear",
+    "pylint",
+    "mypy",
+    "types-PyYAML"
+]
+
+[tool.isort]
+profile = "google"
+skip = ["__init__.py", "conftest.py"]
+
+[tool.mypy]
+strict = true
+namespace_packages = true
+show_error_codes = true
+implicit_reexport = true
+
+[tool.mypy-waiter]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+markers = [
+    "smoke: for basic fast sanity tests",
+    "e2e: journey style tests"
+]

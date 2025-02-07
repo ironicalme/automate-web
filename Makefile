@@ -9,15 +9,15 @@ export GID=$(shell id -g)
 # BUILD TARGETS
 #----------------------------------------------------------
 
-venv: setup.py setup.cfg
+venv:
 	$(PYTHON) -m venv $@
 	. ./$@/bin/activate && pip install -U setuptools wheel pip
 	. ./$@/bin/activate && pip install -e .[dev]
 	touch $@
 
-build: setup.py setup.cfg
+build:
 	pip install -U setuptools wheel pip
-	pip install -e .[dev]
+	python install_deps.py
 
 install-playwright:
 	playwright install
@@ -26,7 +26,8 @@ build-ui: build install-playwright
 
 .PHONY: package
 package: $(VENV)
-	. ./$(VENV)/bin/activate && python setup.py bdist_wheel
+	. ./$(VENV)/bin/activate && pip install build
+	. ./$(VENV)/bin/activate && python -m build
 
 .PHONY: package-clean
 package-clean:
@@ -53,7 +54,6 @@ clean: package-clean
 	rm -rf ./.mypy_cache
 	rm -rf ./.pytest_cache
 	rm -rf ./venv
-	rm -rf ./docker-venv
 
 #----------------------------------------------------------
 # TEST TARGETS
