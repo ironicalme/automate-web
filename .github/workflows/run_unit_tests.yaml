@@ -27,6 +27,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           python install_deps.py
+          playwright install
+
+
 
       - name: Run tests
         run: pytest  tests/unit/**
