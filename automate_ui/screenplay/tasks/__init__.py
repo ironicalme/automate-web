@@ -5,7 +5,6 @@ from .press_key import PressKey
 from .type_text import TypeText
 from .wait import Wait
 from .select import Select
-from .send_request import SendRequest
 from .clear_field import ClearField
 from .refresh_page import RefreshPage
 from .scroll import Scroll

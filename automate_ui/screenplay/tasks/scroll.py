@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Optional
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
 from automate_ui.enums.keyboard_key import KeyboardKey
