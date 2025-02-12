@@ -4,6 +4,7 @@ import pytest
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
 from automate_ui.screenplay.actor import Actor
 from automate_ui.screenplay.persona import User, UserFactory
+from automate_ui.screenplay.tasks.screenshot_page import ScreenshotPage
 # from playwright._impl._api_structures import ViewportSize
 
 
@@ -38,6 +39,7 @@ def actor_factory():
 def frequent_shopper(
     playwright,
     actor_factory,
+    take_screenshot_on_test_failure
 ) -> Actor:
     persona = UserFactory(frequent_shopper=True)
 
@@ -52,4 +54,18 @@ def frequent_shopper(
 
     yield user
 
+    take_screenshot_on_test_failure(user)
+
     user.cleanup()
+
+
+@pytest.fixture
+def take_screenshot_on_test_failure(request):
+    def take_screenshot(actor: Actor):
+
+        actor_involved_in_failed_test = request.node.rep_setup.failed or request.node.rep_call.failed
+
+        if actor_involved_in_failed_test:
+            partial_path = f"{request.node.name}/{actor.name.replace(' ', '-').lower()}/screenshot.png"
+            actor.attempts_to(ScreenshotPage.saved_as(file_name=partial_path, file_type="png"))
+    return take_screenshot
