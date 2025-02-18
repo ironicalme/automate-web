@@ -1,5 +1,5 @@
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
-from automate_ui.screenplay.actor import Actor
+from automate_ui.screenplay.core.actor import Actor
 
 
 class Navigate:

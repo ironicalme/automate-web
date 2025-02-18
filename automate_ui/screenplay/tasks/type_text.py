@@ -1,8 +1,8 @@
 from typing import Optional
 
-from ..actor import Actor
-from ..exceptions import UnableToActError
-from ..target import Target
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.exceptions import UnableToActError
+from automate_ui.screenplay.core.ui.target import Target
 
 
 class TypeText:

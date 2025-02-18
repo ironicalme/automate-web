@@ -2,8 +2,8 @@ from typing import Optional, Union
 import pytest
 
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
-from automate_ui.screenplay.actor import Actor
-from automate_ui.screenplay.persona import User, UserFactory
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.persona import User, UserFactory
 from automate_ui.screenplay.tasks.screenshot_page import ScreenshotPage
 # from playwright._impl._api_structures import ViewportSize
 

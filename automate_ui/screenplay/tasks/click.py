@@ -1,7 +1,7 @@
-from ..abilities import BrowseTheWeb
-from ..actor import Actor
-from ..target import Target
-from ...enums import Timeouts
+from automate_ui.screenplay.abilities import BrowseTheWeb
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.ui.target import Target
+from automate_ui.enums import Timeouts
 
 
 class Click:

@@ -1,4 +1,4 @@
-from automate_ui.screenplay.actor import Actor
+from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.common.ui.dropdown import Dropdown
 from typing import Optional
 

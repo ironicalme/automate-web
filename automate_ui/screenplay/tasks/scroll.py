@@ -6,7 +6,7 @@ from automate_ui.enums.keyboard_key import KeyboardKey
 from automate_ui.screenplay.tasks.press_key import PressKey
 
 if TYPE_CHECKING:
-    from automate_ui.screenplay.actor import Actor
+    from automate_ui.screenplay.core.actor import Actor
     from typing_extensions import Self
 
 

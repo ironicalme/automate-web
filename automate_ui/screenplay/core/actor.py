@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import List, Type, Union, TypeVar, TYPE_CHECKING
 
-from automate_ui.screenplay.narrator import Narrator
+from automate_ui.screenplay.core.narrator import Narrator
 from .exceptions import UnableToPerformError
 from .protocols import Forgettable, Performable, Describable
 
