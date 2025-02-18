@@ -1,5 +1,5 @@
 # import pytest
-from automate_ui.screenplay.persona import User, UserFactory
+from automate_ui.screenplay.core.persona import User, UserFactory
 
 
 def test_generate_random_user():

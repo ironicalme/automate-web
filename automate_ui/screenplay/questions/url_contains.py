@@ -1,5 +1,5 @@
 from automate_ui.screenplay.questions.current_url import CurrentUrl
-from automate_ui.screenplay.actor import Actor
+from automate_ui.screenplay.core.actor import Actor
 
 
 class UrlContains:

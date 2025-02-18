@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from automate_ui.screenplay.target import Target, LocatorStrategy
+from automate_ui.screenplay.core.ui.target import Target, LocatorStrategy
 
 
 class Dropdown(ABC):

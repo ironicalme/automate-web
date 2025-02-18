@@ -1,8 +1,8 @@
 from __future__ import annotations
-from automate_ui.screenplay.actor import Actor
-from automate_ui.screenplay.protocols import Answerable, Performable, Matchable
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.protocols import Answerable, Performable, Matchable
 import waiter
-from automate_ui.screenplay.exceptions import WaitTimeoutError, UnableToActError
+from automate_ui.screenplay.core.exceptions import WaitTimeoutError, UnableToActError
 
 
 class Wait:

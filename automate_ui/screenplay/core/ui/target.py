@@ -3,9 +3,9 @@ from typing import Optional
 
 from playwright.sync_api import Locator
 
-from .abilities import BrowseTheWeb
-from .actor import Actor
-from .exceptions import TargetingError
+from automate_ui.screenplay.abilities import BrowseTheWeb
+from ..actor import Actor
+from ..exceptions import TargetingError
 from enum import Enum
 
 
