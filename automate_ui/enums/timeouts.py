@@ -8,3 +8,5 @@ class Timeouts:
     Should prob use a config file or pass in as env vars.
     """
     PAGE_NAVIGATION = 10
+    APPIUM_SESSION_TIMEOUT = 300
+    APPIUM_WAIT = 30

@@ -37,7 +37,8 @@ dependencies = [
     "phx-class-registry",
     "selenium",
     "Faker",
-    "factory_boy"
+    "pycountry"
+
 ]
 
 [project.optional-dependencies]
