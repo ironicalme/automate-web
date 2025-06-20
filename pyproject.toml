@@ -9,12 +9,12 @@ description = "A framework to automate Web and Mobile UI"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Kartik Muchandi" }]
-license = { text = "MIT" }
-keywords = ["automation", "UI", "testing"]
+license = "MIT"
 dependencies = [
     "pytest",
     "pytest-dependency",
     "pytest-drop-dup-tests",
+    "playwright",
     "pytest-playwright",
     "pytest-rerunfailures",
     "allure-pytest",

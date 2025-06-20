@@ -12,6 +12,10 @@ def install_requirements():
     print("Installing other dependencies from pyproject.toml...")
     subprocess.run([sys.executable, "-m", "pip", "install", "-e", "."], check=True)
 
+    print("Installing dev dependencies...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "-e", ".[dev]"], check=True)
+
+
 
 if __name__ == "__main__":
     install_pip_tools()

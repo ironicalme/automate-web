@@ -1,6 +1,6 @@
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.tasks.common import (
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.tasks.common import (
     BaseTask,
     register_task,
     TaskPerformer
@@ -20,7 +20,7 @@ class AndroidExecuteDeepLink(BaseTask):
 
     @classmethod
     def describe(cls) -> str:
-        return "switches MyCertn app to development environment"
+        return "switches app to development environment"
 
     def perform(self, actor: Actor):
         driver = actor.get_ability(UsePhone).driver
@@ -38,7 +38,7 @@ class IosExecuteDeepLink(BaseTask):
 
     @classmethod
     def describe(cls) -> str:
-        return "switches MyCertn app to development environment"
+        return "switches app to development environment"
 
     def perform(self, actor: Actor):
         driver = actor.get_ability(UsePhone).driver

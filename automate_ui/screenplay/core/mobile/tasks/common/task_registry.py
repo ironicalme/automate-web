@@ -1,6 +1,6 @@
 from typing import Literal, Union
 from class_registry import ClassRegistry
-from certn_qa_tests.screenplay.mobile.tasks.common import BaseTask
+from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
 
 task_registry = ClassRegistry[BaseTask]()
 

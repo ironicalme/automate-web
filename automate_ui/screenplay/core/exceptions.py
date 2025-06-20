@@ -1,3 +1,6 @@
+from typing import Union
+
+
 class ScreenPyError(Exception):
     """The base exception for all of ScreenPy."""
 
@@ -40,3 +43,20 @@ class TargetingError(ScreenPyError):
 
 class WaitTimeoutError(ScreenPyError):
     """Timeout was exceeded for the Wait task"""
+
+
+class RestClientNotFoundError(Exception):
+    """Exception raised when a requested RestClient is not found."""
+
+
+class RestClientError(Exception):
+    """Exception raised when an HTTP request fails with an unexpected status code."""
+
+    def __init__(
+        self, status_code: int, url: str, response_body: Union[dict, str, bytes]
+    ):
+        self.status_code = status_code
+        self.url = url
+        self.response_body = response_body
+        message = f"HTTP {status_code} Error at {url}: {response_body}"
+        super().__init__(message)

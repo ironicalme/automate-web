@@ -1,6 +1,6 @@
 from typing import Any
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.target import Target
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.target import Target
 
 
 class TargetsAttribute:

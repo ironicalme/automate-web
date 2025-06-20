@@ -19,8 +19,8 @@ build:
 	pip install -U setuptools wheel pip
 	python install_deps.py
 
-install-playwright:
-	playwright install
+install-playwright: $(VENV)
+	. ./$(VENV)/bin/activate && playwright install
 
 build-ui: build install-playwright
 

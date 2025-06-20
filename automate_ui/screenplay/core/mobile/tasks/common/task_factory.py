@@ -1,5 +1,5 @@
-from certn_qa_tests.screenplay.mobile.tasks.common import BaseTask
-from certn_qa_tests.screenplay.mobile.tasks.common.task_registry import task_registry
+from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
+from automate_ui.screenplay.core.mobile.tasks.common.task_registry import task_registry
 
 
 class TaskFactory:
