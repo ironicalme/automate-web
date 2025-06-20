@@ -77,3 +77,4 @@ automate_ui_config.yml
 # Pytest cache
 *:pytest_cache
 
+~/.ssh/config
