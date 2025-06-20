@@ -1,8 +1,8 @@
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.apps.mycertn.common.components.dropdown import DropdownTray
-from certn_qa_tests.screenplay.mobile.target import Target
-from certn_qa_tests.screenplay.mobile.tasks.click import Click
-from certn_qa_tests.screenplay.mobile.tasks.type_text import TypeText
+from automate_ui.apps.mobile_app.common.components.dropdown import DropdownTray
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.target import Target
+from automate_ui.screenplay.core.mobile.tasks.click import Click
+from automate_ui.screenplay.core.mobile.tasks.type_text import TypeText
 
 
 class Select:

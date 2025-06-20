@@ -1,7 +1,7 @@
 from typing import Tuple
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.target import Target
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.target import Target
 from appium.webdriver.webelement import WebElement
 
 

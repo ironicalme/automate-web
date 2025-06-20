@@ -1,15 +1,14 @@
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.exceptions import WaitTimeoutError
-from certn_qa_tests.screenplay.matchers import IsNotEqualTo
-from certn_qa_tests.screenplay.mobile.target import Target
-from certn_qa_tests.screenplay.mobile.tasks.common import (
-    BaseTask,
-    register_task,
-    TaskPerformer
-)
-from certn_qa_tests.screenplay.tasks import Wait
-from certn_qa_tests.screenplay.mobile.questions import TargetsAttribute
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.exceptions import WaitTimeoutError
+from automate_ui.screenplay.core.matchers.is_not_equal_to import IsNotEqualTo
+from automate_ui.screenplay.core.mobile.questions.targets_attribute import TargetsAttribute
+from automate_ui.screenplay.core.mobile.target import Target
+from automate_ui.screenplay.core.mobile.tasks.common.base_task import BaseTask
+from automate_ui.screenplay.core.mobile.tasks.common.task_performer import TaskPerformer
+from automate_ui.screenplay.core.mobile.tasks.common.task_registry import register_task
+from automate_ui.screenplay.core.ui.tasks.wait import Wait
+
 
 
 class Mark(TaskPerformer):

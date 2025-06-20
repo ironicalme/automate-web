@@ -1,9 +1,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.webdriver import WebDriver
-from certn_qa_tests.enums.appium_context import AppiumContext
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.tasks.common import BaseTask
+from automate_ui.enums.appium_context import AppiumContext
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
 from selenium.common.exceptions import TimeoutException
 
 

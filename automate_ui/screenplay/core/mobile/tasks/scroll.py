@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional, Tuple, Union
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.target import Target
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.target import Target
 from appium.webdriver.webelement import WebElement
 
 
@@ -159,7 +159,7 @@ class Scroll:
 
     def _calculate_start_viewport_coordinates(self, viewport: Viewport, direction) -> Tuple[int, int]:
         """Calculate start coordinates for viewport-based scrolling."""
-        # The gesture heuristic for viewport based scrolling was determined by ensuring the header, footer or sliding trays of MyCertn app lie within 20% off the edges.
+        # The gesture heuristic for viewport based scrolling was determined by ensuring the header, footer or sliding trays of the app lie within 20% off the edges.
         width = viewport.width
         height = viewport.height
         if direction in ["up", "down"]:

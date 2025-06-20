@@ -6,7 +6,7 @@ from .exceptions import UnableToPerformError
 from .protocols import Forgettable, Performable, Describable
 
 if TYPE_CHECKING:
-    from .persona import (
+    from .models.user.user import (
         User
     )
 

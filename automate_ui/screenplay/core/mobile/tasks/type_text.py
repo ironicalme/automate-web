@@ -1,11 +1,11 @@
 import time
 from typing import Optional
 
-from certn_qa_tests.screenplay.abilities.use_phone import UsePhone
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.mobile.target import Target
-from certn_qa_tests.screenplay.exceptions import UnableToAct
-from certn_qa_tests.screenplay.mobile.tasks.common import (
+from automate_ui.screenplay.abilities.use_phone import UsePhone
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.mobile.target import Target
+from automate_ui.screenplay.core.exceptions import UnableToAct
+from automate_ui.screenplay.core.mobile.tasks.common import (
     BaseTask,
     register_task,
     TaskPerformer

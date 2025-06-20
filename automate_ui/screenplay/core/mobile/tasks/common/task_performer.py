@@ -1,8 +1,8 @@
 from typing import Type
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.decorators import indent_logs
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.decorators import indent_logs
 from .base_task import BaseTask
-from certn_qa_tests.screenplay.abilities import UsePhone
+from automate_ui.screenplay.abilities import UsePhone
 from .task_factory import TaskFactory
 
 

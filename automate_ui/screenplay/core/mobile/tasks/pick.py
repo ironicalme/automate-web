@@ -1,9 +1,9 @@
-from certn_qa_tests.screenplay.actor import Actor
-from certn_qa_tests.screenplay.matchers.is_equal_to import IsEqualTo
-from certn_qa_tests.screenplay.mobile.target import Target
-from certn_qa_tests.screenplay.mobile.questions.targets_attribute import TargetsAttribute
-from certn_qa_tests.screenplay.mobile.tasks.type_text import TypeText
-from certn_qa_tests.screenplay.tasks.wait import Wait
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.matchers.is_equal_to import IsEqualTo
+from automate_ui.screenplay.core.mobile.target import Target
+from automate_ui.screenplay.core.mobile.questions.targets_attribute import TargetsAttribute
+from automate_ui.screenplay.core.mobile.tasks.type_text import TypeText
+from automate_ui.screenplay.core.ui.tasks.wait import Wait
 
 
 class Pick:
