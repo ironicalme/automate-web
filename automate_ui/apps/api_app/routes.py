@@ -58,8 +58,8 @@ class Users(URL):
 
 @dataclass
 class AppAPI:
-    cases = Cases
+    users = Users
     events = Events
-    tags = Tags
-    credential_verifiers = CredentialVerifiers
-    credential_requests = CredentialRequests
+    groups = Groups
+    create = Create
+    user = User

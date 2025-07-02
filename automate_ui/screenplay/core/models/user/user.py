@@ -1,5 +1,7 @@
 from typing import List, Optional
-from pydantic import BaseModel, Field
+
+from pydantic import BaseModel
+from pydantic import Field
 
 from ..base.address import ShortAddress
 from .address import UserAddress
