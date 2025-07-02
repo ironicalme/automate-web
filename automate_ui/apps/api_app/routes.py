@@ -10,33 +10,23 @@ class Events(URL):
 
 
 @dataclass
-class Order(URL):
+class Group(URL):
     def __init__(self, base_url: str):
-        super().__init__(base_url + "order/")
+        super().__init__(base_url + "group/")
 
-
-@dataclass
-class Case(URL):
-    def __init__(self, base_url: str, case_id: str):
-        super().__init__(base_url + f"{case_id}/")
 
 
 @dataclass
-class Cases(URL):
+class Groups(URL):
     def __init__(self):
-        super().__init__("cases/")
+        super().__init__("groups/")
 
-    def order(self) -> Order:
-        return Order(self._url)
+    def create(self) -> Create:
+        return Create(self._url)
 
-    def case(self, case_id) -> Case:
-        return Case(self._url, case_id)
+    def group(self, group_id) -> Group:
+        return Group(self._url, group_id)
 
-
-@dataclass
-class Tags(URL):
-    def __init__(self):
-        super().__init__("tags/")
 
 
 @dataclass
@@ -45,40 +35,25 @@ class Create(URL):
         super().__init__(base_url + "create/")
 
 
-@dataclass
-class CredentialVerifier(URL):
-    def __init__(self, base_url: str, credential_verifier_id: str):
-        super().__init__(base_url + f"{credential_verifier_id}/")
+
 
 
 @dataclass
-class CredentialVerifiers(URL):
+class User(URL):
+    def __init__(self, base_url: str, user_id: str):
+        super().__init__(base_url + f"{user_id}/")
+
+
+@dataclass
+class Users(URL):
     def __init__(self):
-        super().__init__("credential-verifiers/")
+        super().__init__("users/")
 
     def create(self) -> Create:
         return Create(self._url)
 
-    def credential_verifier(self, credential_verifier_id) -> CredentialVerifier:
-        return CredentialVerifier(self._url, credential_verifier_id)
-
-
-@dataclass
-class CredentialRequest(URL):
-    def __init__(self, base_url: str, credential_request_id: str):
-        super().__init__(base_url + f"{credential_request_id}/")
-
-
-@dataclass
-class CredentialRequests(URL):
-    def __init__(self):
-        super().__init__("credential-requests/")
-
-    def create(self) -> Create:
-        return Create(self._url)
-
-    def credential_request(self, credential_request_id) -> CredentialRequest:
-        return CredentialRequest(self._url, credential_request_id)
+    def fetch_user(self, user_id) -> User:
+        return User(self._url, user_id)
 
 
 @dataclass

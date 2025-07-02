@@ -9,13 +9,13 @@ from automate_ui.apps.api_app.routes import AppAPI
 
 
 
-class CredentialRequestsRetrieve:
+class FetchUser:
     def __init__(self, id: str):
         self._id = id
 
     @classmethod
-    def matching(cls, id: str) -> "CredentialRequestsRetrieve":
-        return CredentialRequestsRetrieve(id)
+    def matching(cls, id: str) -> "FetchUser":
+        return FetchUser(id)
 
     def answered_by(self, actor: Actor):
         public_api_client = actor.get_ability(SendHttpRequests).get_rest_client(
@@ -23,10 +23,10 @@ class CredentialRequestsRetrieve:
         )
 
         actor.narrate(
-            f"{actor} attempts to retrieve credentialrequest with id={self._id}"
+            f"{actor} attempts to retrieve user with id={self._id}"
         )
 
-        url = AppAPI.credential_requests().credential_request(self._id).url
+        url = AppAPI.users().user(self._id).url
 
         actor.attempts_to(
             SendRequest(
