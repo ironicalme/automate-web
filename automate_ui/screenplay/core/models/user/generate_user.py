@@ -1,14 +1,21 @@
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
+from random import random
+import string
 from typing import List, Optional
-from datetime import datetime, timedelta, date
+
 from faker import Faker
 
-
+from ..base.faker_providers import CountrySpecificProvider
+from ..base.faker_providers import PhoneNumberGenerator
 from ..base.name import BaseName
 from ..base.phone import BasePhone
-from ..base.faker_providers import CountrySpecificProvider, PhoneNumberGenerator
 from .address import UserAddress
-from .personal_information import PersonalInformation, BirthLocation
+from .personal_information import BirthLocation
+from .personal_information import PersonalInformation
 from .user import User
+
 
 class GenerateUserPersona:
     """Builder for creating user personas with a fluent interface."""
@@ -123,7 +130,7 @@ class GenerateUserPersona:
             self._email_address = email
         else:
             # Generate random 6 character string
-            random_str = self.faker.random_letters(6)
+            random_str = ''.join(self.faker.random_choices(elements=string.ascii_lowercase, length=6))
             # Get first and last name from personal info if available
             if self._personal_info:
                 given_name = self._personal_info.name.given_name.lower()

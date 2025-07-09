@@ -85,3 +85,6 @@ screenshots/
 
 # node_modules
 node_modules/
+
+# local_secrets.yaml
+local_secrets.yaml

@@ -13,6 +13,69 @@ from automate_ui.screenplay.core.models.user.generate_user import GenerateUserPe
 from automate_ui.screenplay.core.models.user.user import User
 from automate_ui.screenplay.core.ui.tasks.screenshot_page import ScreenshotPage
 # from playwright._impl._api_structures import ViewportSize
+from automate_ui.common.utils.config_manager import create_config_manager
+
+
+def pytest_addoption(parser):
+    """Add command-line options for configuration override."""
+    parser.addoption(
+        "--yaml-config",
+        action="store",
+        default="local_secrets.yaml",
+        help="Path to YAML configuration file (default: local_secrets.yaml)"
+    )
+    parser.addoption(
+        "--aws-secret",
+        action="store",
+        default=None,
+        help="AWS Secrets Manager secret name to use instead of YAML"
+    )
+    parser.addoption(
+        "--aws-region",
+        action="store",
+        default=None,
+        help="AWS region for Secrets Manager (default: uses AWS default)"
+    )
+    parser.addoption(
+        "--env",
+        action="store",
+        default="development",
+        choices=["development", "staging", "production"],
+        help="Environment to use for configuration (default: development)"
+    )
+
+
+@pytest.fixture(scope='session')
+def config_manager(request):
+    """
+    Pytest fixture to provide a config manager that combines secrets with environment URLs.
+
+    Usage:
+        def test_something(config_manager):
+            api_key = config_manager.get_secret('api.public.key')
+            api_url = config_manager.get_url('api.public', 'base_url')
+            web_url = config_manager.get_url('web_app', 'base_url')
+
+    Command-line options:
+        --yaml-config: Path to YAML file (default: local_secrets.yaml)
+        --aws-secret: AWS Secrets Manager secret name
+        --aws-region: AWS region for Secrets Manager
+        --env: Environment to use (development/staging/production, default: development)
+    """
+    yaml_file_path = request.config.getoption("--yaml-config")
+    aws_secret_name = request.config.getoption("--aws-secret")
+    aws_region = request.config.getoption("--aws-region")
+    environment = request.config.getoption("--env")
+
+    return create_config_manager(
+        yaml_file_path=yaml_file_path,
+        environment=environment,
+        aws_secret_name=aws_secret_name,
+        aws_region=aws_region
+    )
+
+
+
 
 
 @pytest.fixture(scope='class')

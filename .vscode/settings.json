@@ -31,6 +31,8 @@
         "--output=./test-failures",
         "--screenshot=only-on-failure",
         "--video=retain-on-failure",
+        "--env=development",
+        "--yaml-config=local_secrets.yaml",
         "-svv"
     ],
     "makefile.configureOnOpen": false
