@@ -82,3 +82,6 @@ automate_ui_config.yml
 
 # screenshots
 screenshots/
+
+# node_modules
+node_modules/

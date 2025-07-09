@@ -18,10 +18,117 @@ Note: Type checking can be tweaked according to the comfort and understanding of
 
 - Python 3.11 or higher
 - Make (for using the provided Makefile commands)
+- Node.js (for mobile testing with uiautomator2 and Appium)
 - For mobile testing:
   - Appium Server
   - Android SDK (for Android testing)
   - Xcode (for iOS testing)
+
+## Environment Setup
+
+### Node.js Installation
+
+Node.js is required for mobile testing with uiautomator2 and Appium:
+
+1. **Install Node.js**:
+   ```bash
+   # On macOS with Homebrew
+   brew install node
+
+   # Or download from https://nodejs.org/
+   ```
+
+2. **Verify Node.js installation**:
+   ```bash
+   node --version
+   npm --version
+   ```
+
+3. **Install Appium globally** (optional, can be installed per project):
+   ```bash
+   npm install -g appium
+   ```
+
+### Java Configuration
+
+The framework requires Java for Appium and Android testing. Follow these steps to configure Java:
+Ignore if mobile testing is not required.
+
+1. **Install Java JDK** (if not already installed):
+   ```bash
+   # On macOS with Homebrew
+   brew install openjdk
+
+   # Or download from Oracle/OpenJDK website. Better to download and install, cause it handles the ENV VARS and PATH setup.
+   ```
+
+2. **Set JAVA_HOME and PATH** (automatically configured in your `.zshrc`):
+   ```bash
+   # Java Configuration
+   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
+   export PATH=$JAVA_HOME/bin:$PATH
+   ```
+
+3. **Verify Java installation**:
+   ```bash
+   java -version
+   echo $JAVA_HOME
+   ```
+
+### Android SDK Configuration
+
+For Android mobile testing, configure the Android SDK:
+
+1. **Install Android Studio** (includes Android SDK) or download standalone SDK
+
+2. **Set ANDROID_HOME and PATH** (automatically configured in your `.zshrc`):
+   ```bash
+   # Android SDK Configuration
+   export ANDROID_HOME=$HOME/Library/Android/sdk
+   export PATH=$PATH:$ANDROID_HOME/platform-tools
+   export PATH=$PATH:$ANDROID_HOME/emulator
+   export PATH=$PATH:$ANDROID_HOME/tools
+   export PATH=$PATH:$ANDROID_HOME/tools/bin
+   ```
+
+3. **Verify Android SDK setup**:
+   ```bash
+   echo $ANDROID_HOME
+   adb version
+   ```
+
+4. **Install required Android SDK components**:
+   - Platform Tools (latest version)
+   - Build Tools
+   - Android Platform (API level for your target devices)
+   - Android Emulator
+   - System Images (for emulator testing)
+
+### Complete Environment Configuration
+
+Your `.zshrc` file should include these configurations:
+
+```bash
+# Python aliases
+alias python=python3
+alias pip=pip3
+
+# Java Configuration
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Android SDK Configuration
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+```
+
+After updating `.zshrc`, reload the configuration:
+```bash
+source ~/.zshrc
+```
 
 ## Installation and Setup
 
@@ -147,4 +254,39 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This project is currently under active development. Some features may be subject to change.
+
+## Mobile Automation Setup (Node.js & Appium)
+
+To streamline mobile environment setup, this project uses a `package.json` and Makefile targets for Appium and driver installation.
+
+### One-Step Mobile Setup
+
+To install Appium and the uiautomator2 driver:
+```bash
+make mobile-setup
+```
+This will:
+- Install Appium locally (in `node_modules`)
+- Install the uiautomator2 driver for Android automation
+
+### Clean Mobile Environment
+
+To remove all Node.js/Appium dependencies and lock files:
+```bash
+make clean-mobile
+```
+
+### Rebuild Mobile Environment
+
+To fully clean and reinstall the mobile automation environment:
+```bash
+make rebuild-mobile-setup
+```
+
+### How it works
+- The `package.json` declares Appium as a dependency and provides a script to install the uiautomator2 driver.
+- The Makefile targets automate the install, clean, and rebuild steps for mobile automation.
+
+### Customization
+- To add more Appium drivers (e.g., for iOS), extend the `install-appium-drivers` script in `package.json` or add new scripts.
 
