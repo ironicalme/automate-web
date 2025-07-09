@@ -1,6 +1,7 @@
+from typing import Dict
+
 from faker.providers import BaseProvider
 import pycountry
-from typing import Dict
 
 
 class CountrySpecificProvider(BaseProvider):
@@ -132,24 +133,24 @@ class PhoneNumberGenerator:
                 "228", "229", "231", "234", "239", "240", "248", "251", "252", "253"
             ]
             area_code = faker.random_element(valid_area_codes)
-            prefix = faker.random_number(digits=3)
-            line = faker.random_number(digits=4)
+            prefix = faker.random_number(digits=3, fix_len=True)
+            line = faker.random_number(digits=4, fix_len=True)
 
             return f"{country_code}{area_code}{prefix}{line}"
         elif country == "Australia":
             # Australian format: +61XXXXXXXXX
             mobile_prefix = "4"  # Australian mobile numbers start with 4
-            remaining_digits = faker.random_number(digits=8)
+            remaining_digits = faker.random_number(digits=8, fix_len=True)
             return f"{country_code}{mobile_prefix}{remaining_digits}"
         elif country == "United Kingdom":
             # UK format: +44XXXXXXXXXX
             mobile_prefix = "7"  # UK mobile numbers start with 7
-            remaining_digits = faker.random_number(digits=9)
+            remaining_digits = faker.random_number(digits=9, fix_len=True)
             return f"{country_code}{mobile_prefix}{remaining_digits}"
         elif country == "Singapore":
             # Singapore format: +65XXXXXXXX
             mobile_prefix = "8"  # Singapore mobile numbers start with 8 or 9
-            remaining_digits = faker.random_number(digits=7)
+            remaining_digits = faker.random_number(digits=7, fix_len=True)
             return f"{country_code}{mobile_prefix}{remaining_digits}"
         else:
-            return f"{country_code}{faker.random_number(digits=10)}"
+            return f"{country_code}{faker.random_number(digits=10, fix_len=True)}"
