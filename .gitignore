@@ -78,3 +78,10 @@ automate_ui_config.yml
 *:pytest_cache
 
 ~/.ssh/config
+
+
+# screenshots
+screenshots/
+
+# node_modules
+node_modules/

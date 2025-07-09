@@ -61,7 +61,7 @@ clean: package-clean
 
 .PHONY: test
 test:
-	pytest -svv $(TEST_SRC) $(TEST_ARGS)
+	pytest -svv tests/unit/**
 
 #----------------------------------------------------------
 # LOCAL DEV ENV SETUP TARGETS
@@ -70,3 +70,12 @@ test:
 local-setup: venv install-playwright
 
 rebuild-local: clean local-setup
+
+mobile-setup:
+	npm install
+	npm run install-appium-drivers
+
+clean-mobile:
+	rm -rf node_modules package-lock.json
+
+rebuild-mobile-setup: clean-mobile mobile-setup

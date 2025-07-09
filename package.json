@@ -1,0 +1,15 @@
+{
+  "name": "automate-web-mobile-setup",
+  "version": "1.0.0",
+  "description": "Mobile automation setup for Appium and drivers.",
+  "private": true,
+  "scripts": {
+    "install-appium-drivers": "appium driver install uiautomator2 || exit 0"
+  },
+  "dependencies": {
+    "appium": "^2.19.0"
+  },
+  "devDependencies": {
+    "appium-uiautomator2-driver": "^4.2.5"
+  }
+}
