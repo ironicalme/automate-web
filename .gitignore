@@ -78,3 +78,7 @@ automate_ui_config.yml
 *:pytest_cache
 
 ~/.ssh/config
+
+
+# screenshots
+screenshots/

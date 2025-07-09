@@ -61,7 +61,7 @@ clean: package-clean
 
 .PHONY: test
 test:
-	pytest -svv $(TEST_SRC) $(TEST_ARGS)
+	pytest -svv tests/unit/**
 
 #----------------------------------------------------------
 # LOCAL DEV ENV SETUP TARGETS
