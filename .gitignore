@@ -87,4 +87,4 @@ screenshots/
 node_modules/
 
 # local_secrets.yaml
-local_secrets.yaml
+# local_secrets.yaml  # Uncomment this line when implementing it in live projects.
