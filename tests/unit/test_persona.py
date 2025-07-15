@@ -4,15 +4,15 @@ from automate_ui.screenplay.core.models.user.generate_user import GenerateUserPe
 
 def test_generate_random_user():
     """Test that get_user() generates a random user with default values."""
-    user = GenerateUserPersona() \
-        .with_personal_info(phone_country="Canada") \
-        .with_address(country="Canada") \
-        .with_personal_info() \
-        .with_email() \
-        .with_password() \
+    user = (
+        GenerateUserPersona()
+        .with_personal_info(phone_country="Canada")
+        .with_address(country="Canada")
+        .with_personal_info()
+        .with_email()
+        .with_password()
         .build()
-
-
+    )
 
     print(f"{user}")
     assert user.personal_information.given_name

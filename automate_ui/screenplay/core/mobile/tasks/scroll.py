@@ -1,9 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional, Tuple, Union
+
+from appium.webdriver.webelement import WebElement
+
 from automate_ui.screenplay.abilities.use_phone import UsePhone
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.target import Target
-from appium.webdriver.webelement import WebElement
 
 
 @dataclass
@@ -137,13 +139,12 @@ class Scroll:
         location = element.location
         size = element.size
         return ElementBoundaries(
-            x=location['x'],
-            y=location['y'],
-            width=size['width'],
-            height=size['height']
+            x=location["x"], y=location["y"], width=size["width"], height=size["height"]
         )
 
-    def _constrain_within_boundaries(self, x: int, y: int, boundaries: ElementBoundaries) -> Tuple[int, int]:
+    def _constrain_within_boundaries(
+        self, x: int, y: int, boundaries: ElementBoundaries
+    ) -> Tuple[int, int]:
         """Constrain a coordinate to be within given boundaries."""
         x_max = boundaries.x + boundaries.width
         y_max = boundaries.y + boundaries.height
@@ -155,35 +156,52 @@ class Scroll:
         """Calculate the center of an element."""
         location = element.location
         size = element.size
-        return location['x'] + size['width'] // 2, location['y'] + size['height'] // 2
+        return location["x"] + size["width"] // 2, location["y"] + size["height"] // 2
 
-    def _calculate_start_viewport_coordinates(self, viewport: Viewport, direction) -> Tuple[int, int]:
+    def _calculate_start_viewport_coordinates(
+        self, viewport: Viewport, direction
+    ) -> Tuple[int, int]:
         """Calculate start coordinates for viewport-based scrolling."""
         # The gesture heuristic for viewport based scrolling was determined by ensuring the header, footer or sliding trays of the app lie within 20% off the edges.
         width = viewport.width
         height = viewport.height
         if direction in ["up", "down"]:
-            return width // 2, int(height * (0.8 if direction == "up" else 0.2))  # Ensure it leaves 20% off the top and bottom edge
+            return width // 2, int(
+                height * (0.8 if direction == "up" else 0.2)
+            )  # Ensure it leaves 20% off the top and bottom edge
         elif direction in ["left", "right"]:
-            return int(width * (0.8 if direction == "left" else 0.2)), height // 2  # Ensure it leaves 20% off the left and right edge
+            return (
+                int(width * (0.8 if direction == "left" else 0.2)),
+                height // 2,
+            )  # Ensure it leaves 20% off the left and right edge
         else:
             raise ValueError(f"Invalid direction: {direction}")
 
-    def _calculate_end_viewport_coordinates(self, viewport: Viewport, direction, start_x, start_y) -> Tuple[int, int]:
+    def _calculate_end_viewport_coordinates(
+        self, viewport: Viewport, direction, start_x, start_y
+    ) -> Tuple[int, int]:
         """Calculate end coordinates for viewport-based scrolling, constrained within viewport bounds."""
         width = viewport.width
         height = viewport.height
         if direction == "up":
             end_x = start_x
-            end_y = max(0, start_y - int(height * 0.6))  # Ensure it doesn't go above the top of the viewport
+            end_y = max(
+                0, start_y - int(height * 0.6)
+            )  # Ensure it doesn't go above the top of the viewport
         elif direction == "down":
             end_x = start_x
-            end_y = min(height - 1, start_y + int(height * 0.6))  # Ensure it doesn't go below the bottom of the viewport
+            end_y = min(
+                height - 1, start_y + int(height * 0.6)
+            )  # Ensure it doesn't go below the bottom of the viewport
         elif direction == "left":
-            end_x = max(0, start_x - int(width * 0.6))  # Ensure it doesn't go beyond the left edge
+            end_x = max(
+                0, start_x - int(width * 0.6)
+            )  # Ensure it doesn't go beyond the left edge
             end_y = start_y
         elif direction == "right":
-            end_x = min(width - 1, start_x + int(width * 0.6))  # Ensure it doesn't go beyond the right edge
+            end_x = min(
+                width - 1, start_x + int(width * 0.6)
+            )  # Ensure it doesn't go beyond the right edge
             end_y = start_y
         else:
             raise ValueError(f"Invalid direction: {direction}")
@@ -231,20 +249,30 @@ class Scroll:
             max_y = viewport_or_boundaries.y + viewport_or_boundaries.height - 1
             step_distance = int(viewport_or_boundaries.height * 0.12)
         else:
-            raise ValueError("Invalid viewport_or_boundaries type. Expected dict or ElementBoundaries.")
+            raise ValueError(
+                "Invalid viewport_or_boundaries type. Expected dict or ElementBoundaries."
+            )
 
         # Calculate end coordinates based on the direction
         if direction == "up":
             end_x = start_x
-            end_y = max(min_y, start_y - step_distance * step)  # Move up, constrained by min_y
+            end_y = max(
+                min_y, start_y - step_distance * step
+            )  # Move up, constrained by min_y
         elif direction == "down":
             end_x = start_x
-            end_y = min(max_y, start_y + step_distance * step)  # Move down, constrained by max_y
+            end_y = min(
+                max_y, start_y + step_distance * step
+            )  # Move down, constrained by max_y
         elif direction == "left":
-            end_x = max(min_x, start_x - step_distance * step)  # Move left, constrained by min_x
+            end_x = max(
+                min_x, start_x - step_distance * step
+            )  # Move left, constrained by min_x
             end_y = start_y
         elif direction == "right":
-            end_x = min(max_x, start_x + step_distance * step)  # Move right, constrained by max_x
+            end_x = min(
+                max_x, start_x + step_distance * step
+            )  # Move right, constrained by max_x
             end_y = start_y
         else:
             raise ValueError(f"Invalid direction: {direction}")
@@ -255,16 +283,24 @@ class Scroll:
         """Determine the start coordinates based on the provided element, coords or viewport."""
 
         if self.start_element:
-            start_x, start_y = self._calculate_element_center(self.start_element.found_by(actor))
+            start_x, start_y = self._calculate_element_center(
+                self.start_element.found_by(actor)
+            )
         elif self.start_coords:
             start_x, start_y = self.start_coords
         else:
             viewport = self._get_viewport(actor)
-            start_x, start_y = self._calculate_start_viewport_coordinates(viewport, self.direction)
+            start_x, start_y = self._calculate_start_viewport_coordinates(
+                viewport, self.direction
+            )
 
         if self.target_element:
-            boundaries = self._calculate_element_boundaries(self.target_element.found_by(actor))
-            start_x, start_y = self._constrain_within_boundaries(start_x, start_y, boundaries)
+            boundaries = self._calculate_element_boundaries(
+                self.target_element.found_by(actor)
+            )
+            start_x, start_y = self._constrain_within_boundaries(
+                start_x, start_y, boundaries
+            )
 
         return start_x, start_y
 
@@ -282,31 +318,47 @@ class Scroll:
         """
 
         if self.end_element:
-            end_x, end_y = self._calculate_element_center(self.end_element.found_by(actor))
+            end_x, end_y = self._calculate_element_center(
+                self.end_element.found_by(actor)
+            )
         elif self.end_coords:
             end_x, end_y = self.end_coords
         else:
             viewport = self._get_viewport(actor)
 
             if self.target_element:
-                boundaries = self._calculate_element_boundaries(self.target_element.found_by(actor))
+                boundaries = self._calculate_element_boundaries(
+                    self.target_element.found_by(actor)
+                )
                 if self.steps:
                     end_x, end_y = self._calculate_end_coordinates_for_steps(
                         boundaries, self.direction, start_x, start_y, self.steps
                     )
                 else:
-                    step_size = boundaries.height // 2 if self.direction in ("up", "down") else boundaries.width // 2
+                    step_size = (
+                        boundaries.height // 2
+                        if self.direction in ("up", "down")
+                        else boundaries.width // 2
+                    )
                     if self.direction == "up":
                         end_x = start_x
-                        end_y = max(start_y - step_size, boundaries.y)  # Constrain to top boundary
+                        end_y = max(
+                            start_y - step_size, boundaries.y
+                        )  # Constrain to top boundary
                     elif self.direction == "down":
                         end_x = start_x
-                        end_y = min(start_y + step_size, boundaries.y + boundaries.height - 1)  # Constrain to bottom
+                        end_y = min(
+                            start_y + step_size, boundaries.y + boundaries.height - 1
+                        )  # Constrain to bottom
                     elif self.direction == "left":
-                        end_x = max(start_x - step_size, boundaries.x)  # Constrain to left boundary
+                        end_x = max(
+                            start_x - step_size, boundaries.x
+                        )  # Constrain to left boundary
                         end_y = start_y
                     elif self.direction == "right":
-                        end_x = min(start_x + step_size, boundaries.x + boundaries.width - 1)  # Constrain to right boundary
+                        end_x = min(
+                            start_x + step_size, boundaries.x + boundaries.width - 1
+                        )  # Constrain to right boundary
                         end_y = start_y
             else:
                 if self.steps:

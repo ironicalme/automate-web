@@ -1,6 +1,7 @@
 from typing import Sized
 
-from hamcrest import empty, is_not
+from hamcrest import empty
+from hamcrest import is_not
 
 
 class IsNotEmpty:

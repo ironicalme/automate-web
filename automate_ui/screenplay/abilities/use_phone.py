@@ -1,9 +1,11 @@
 import json
 from typing import Optional
-from pydantic import BaseModel, Field
+
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.options.ios.xcuitest.base import XCUITestOptions
+from pydantic import BaseModel
+from pydantic import Field
 
 
 class PhoneCapabilities(BaseModel):
@@ -33,16 +35,20 @@ class UsePhone:
         return UsePhone(capabilities)
 
     def start_session(self, appium_server_url: str):
-        platform = self.capabilities.get('platformName', '').lower()
+        platform = self.capabilities.get("platformName", "").lower()
 
         if platform == "android":
             options = UiAutomator2Options().load_capabilities(self.capabilities)
         elif platform == "ios":
             options = XCUITestOptions().load_capabilities(self.capabilities)
         else:
-            raise ValueError(f"Unsupported platform: {self.capabilities.get('platformName')}")
+            raise ValueError(
+                f"Unsupported platform: {self.capabilities.get('platformName')}"
+            )
 
-        self.driver = webdriver.Remote(command_executor=appium_server_url, options=options)
+        self.driver = webdriver.Remote(
+            command_executor=appium_server_url, options=options
+        )
 
     def forget(self) -> None:
 

@@ -1,0 +1,2 @@
+flake8 ./tests ./automate_ui --exclude=__init__.py
+black --check ./tests ./automate_ui

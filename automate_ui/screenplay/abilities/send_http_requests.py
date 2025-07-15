@@ -5,7 +5,6 @@ from requests import Response
 from automate_ui.screenplay.core.api.rest_client import RestClient
 from automate_ui.screenplay.core.exceptions import RestClientNotFoundError
 
-
 T_RestClient = TypeVar("T_RestClient", bound=RestClient)
 
 

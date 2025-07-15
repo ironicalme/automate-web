@@ -3,19 +3,22 @@ from typing import List, Optional
 from pydantic import BaseModel
 from pydantic import Field
 
-from ..base.address import ShortAddress
 from .address import UserAddress
 from .personal_information import PersonalInformation
 
 
 class User(BaseModel):
     """Model representing an applicant persona."""
-    personal_information: Optional[PersonalInformation] = Field(None, description="Personal information")
-    addresses: Optional[List[UserAddress]] = Field(default_factory=list, description="Address history")
+
+    personal_information: Optional[PersonalInformation] = Field(
+        None, description="Personal information"
+    )
+    addresses: Optional[List[UserAddress]] = Field(
+        default_factory=list, description="Address history"
+    )
     email_address: Optional[str] = Field(None, description="Email address")
     password: Optional[str] = Field(None, description="Password")
     frequent_shopper: bool = Field(False, description="Frequent shopper status")
-
 
     @property
     def legal_name(self) -> str:

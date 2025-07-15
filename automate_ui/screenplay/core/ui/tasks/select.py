@@ -1,10 +1,10 @@
-from automate_ui.screenplay.core.actor import Actor
-from automate_ui.screenplay.common.ui.dropdown import Dropdown
 from typing import Optional
+
+from automate_ui.screenplay.common.ui.dropdown import Dropdown
+from automate_ui.screenplay.core.actor import Actor
 
 
 class Select:
-
     """
     Selects an item from a given dropdown menu.
 
@@ -19,11 +19,7 @@ class Select:
     For type hints, refer to the .item() method of the specific Dropdown type used.
     """
 
-    def __init__(
-        self,
-        item_locator: str = None,
-        item_text: Optional[str] = None
-    ):
+    def __init__(self, item_locator: str = None, item_text: Optional[str] = None):
         self.item_text = item_text
         self.item_locator = item_locator
         self.dropdown = None
@@ -33,12 +29,14 @@ class Select:
         return self
 
     def perform(self, actor: Actor) -> None:
-        from automate_ui.screenplay.tasks import Click, TypeText
+        from automate_ui.screenplay.tasks import Click
+        from automate_ui.screenplay.tasks import TypeText
+
         if not self.dropdown:
             raise Exception("Unable to perform select without target dropdown.")
 
         actor.attempts_to(
             Click(self.dropdown.field),
             TypeText(self.item_text).into(self.dropdown.field),
-            Click(self.dropdown.item(self.item_locator))
+            Click(self.dropdown.item(self.item_locator)),
         )

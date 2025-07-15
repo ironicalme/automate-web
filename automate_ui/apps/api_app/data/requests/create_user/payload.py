@@ -1,7 +1,8 @@
 from pydantic import BaseModel
 
-from automate_ui.screenplay.core.models.user.personal_information import \
-    PersonalInformation
+from automate_ui.screenplay.core.models.user.personal_information import (
+    PersonalInformation,
+)
 
 
 class CreateUserPayload(BaseModel):

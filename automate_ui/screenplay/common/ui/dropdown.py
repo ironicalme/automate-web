@@ -1,5 +1,8 @@
-from abc import ABC, abstractmethod
-from automate_ui.screenplay.core.ui.target import Target, LocatorStrategy
+from abc import ABC
+from abc import abstractmethod
+
+from automate_ui.screenplay.core.ui.target import LocatorStrategy
+from automate_ui.screenplay.core.ui.target import Target
 
 
 class Dropdown(ABC):
@@ -22,18 +25,18 @@ class DataKeyDropdown(Dropdown):
 
     @classmethod
     def item(cls, data_key: str) -> Target:
-        return Target.the(
-            f'dropdown item with data-key: "{data_key}"'
-        ).located_by(LocatorStrategy.SELECTOR, f"[data-key='{data_key}']")
+        return Target.the(f'dropdown item with data-key: "{data_key}"').located_by(
+            LocatorStrategy.SELECTOR, f"[data-key='{data_key}']"
+        )
 
 
 class IDDropdown(Dropdown):
 
     @classmethod
     def item(cls, id_: str) -> Target:
-        return Target.the(
-            f"dropdown item with id: {id_}"
-        ).located_by(LocatorStrategy.SELECTOR, f"[id='{id_}']")
+        return Target.the(f"dropdown item with id: {id_}").located_by(
+            LocatorStrategy.SELECTOR, f"[id='{id_}']"
+        )
 
 
 class DataTestIDDropdown(Dropdown):
@@ -49,6 +52,6 @@ class TextDropdown(Dropdown):
 
     @classmethod
     def item(cls, text_: str) -> Target:
-        return Target.the(
-            f"dropdown item with matching text: {text_}"
-        ).located_by(LocatorStrategy.TEXT, text_)
+        return Target.the(f"dropdown item with matching text: {text_}").located_by(
+            LocatorStrategy.TEXT, text_
+        )

@@ -1,8 +1,13 @@
 from __future__ import annotations
-from automate_ui.screenplay.core.actor import Actor
-from automate_ui.screenplay.core.protocols import Answerable, Performable, Matchable
+
 import waiter
-from automate_ui.screenplay.core.exceptions import WaitTimeoutError, UnableToActError
+
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.exceptions import UnableToActError
+from automate_ui.screenplay.core.exceptions import WaitTimeoutError
+from automate_ui.screenplay.core.protocols import Answerable
+from automate_ui.screenplay.core.protocols import Matchable
+from automate_ui.screenplay.core.protocols import Performable
 
 
 class Wait:
@@ -68,7 +73,9 @@ class Wait:
 
     def perform(self, actor: Actor) -> None:
         if not self._question or self._matcher is None:
-            raise UnableToActError("both an Answerable and Resolvable is required to perform this action.")
+            raise UnableToActError(
+                "both an Answerable and Resolvable is required to perform this action."
+            )
 
         if not self._poll:
             self._poll = 3
@@ -77,7 +84,9 @@ class Wait:
             self._timeout = 15
 
         if self._poll > self._timeout:
-            raise UnableToActError("Polling period must be less than or equal to timeout")
+            raise UnableToActError(
+                "Polling period must be less than or equal to timeout"
+            )
 
         for _ in waiter.wait(self._poll, self._timeout):
             answer = self._question.answered_by(actor)

@@ -1,7 +1,7 @@
+from automate_ui.enums import Timeouts
 from automate_ui.screenplay.abilities import BrowseTheWeb
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.ui.target import Target
-from automate_ui.enums import Timeouts
 
 
 class Click:
@@ -22,16 +22,12 @@ class Click:
         actor.attempts_to(Click(LoginPage.login_button))
     """
 
-    def __init__(
-        self,
-        target: Target,
-        expect_navigation: bool = False
-    ) -> None:
+    def __init__(self, target: Target, expect_navigation: bool = False) -> None:
         self.target = target
         self.expect_navigation = expect_navigation
 
     def describe(self) -> str:
-        return f'clicks on the {self.target}.'
+        return f"clicks on the {self.target}."
 
     def perform(self, actor: Actor) -> None:
         if self.expect_navigation:

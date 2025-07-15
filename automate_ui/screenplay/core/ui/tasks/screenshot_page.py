@@ -1,16 +1,13 @@
-from automate_ui.screenplay.core.actor import Actor
-from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
 import pathlib
 from typing import Literal
+
+from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
+from automate_ui.screenplay.core.actor import Actor
 
 
 class ScreenshotPage:
 
-    def __init__(
-        self,
-        file_name: str,
-        file_type: Literal["png", "jpeg"] = "png"
-    ):
+    def __init__(self, file_name: str, file_type: Literal["png", "jpeg"] = "png"):
         self._file_name = file_name
         self._file_type = file_type
 
@@ -20,9 +17,7 @@ class ScreenshotPage:
 
     @classmethod
     def saved_as(
-        cls,
-        file_name: str,
-        file_type: Literal["png", "jpeg"] = "png"
+        cls, file_name: str, file_type: Literal["png", "jpeg"] = "png"
     ) -> "ScreenshotPage":
         return ScreenshotPage(file_name=file_name, file_type=file_type)
 

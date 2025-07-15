@@ -6,7 +6,6 @@ from automate_ui.screenplay.core.mobile.tasks.type_text import TypeText
 
 
 class Select:
-
     """
     Selects an item from a given dropdown menu.
 
@@ -25,11 +24,7 @@ class Select:
 
     """
 
-    def __init__(
-        self,
-        item_text: str = None,
-        search: bool = False
-    ):
+    def __init__(self, item_text: str = None, search: bool = False):
         self.item_text = item_text
         self.search = search
         self.dropdown = None

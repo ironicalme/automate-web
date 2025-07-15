@@ -1,7 +1,6 @@
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
-from random import random
 import string
 from typing import List, Optional
 
@@ -29,8 +28,9 @@ class GenerateUserPersona:
         self._password: Optional[str] = None
         self._frequent_shopper: bool = False
 
-
-    def _calculate_address_dates(self, months_ago: int, duration_in_months: int) -> tuple[datetime, Optional[datetime]]:
+    def _calculate_address_dates(
+        self, months_ago: int, duration_in_months: int
+    ) -> tuple[datetime, Optional[datetime]]:
         """Calculate start and end dates for an address.
 
         Args:
@@ -54,8 +54,8 @@ class GenerateUserPersona:
         country: str,
         is_current: bool = False,
         months_ago: Optional[int] = 6,
-        duration_in_months: Optional[int] = 6
-    ) -> 'GenerateUserPersona':
+        duration_in_months: Optional[int] = 6,
+    ) -> "GenerateUserPersona":
         """Add an address to the user's history.
 
         Args:
@@ -67,7 +67,7 @@ class GenerateUserPersona:
         # Calculate dates
         start_date, end_date = self._calculate_address_dates(
             months_ago=months_ago,
-            duration_in_months=duration_in_months if not is_current else 0
+            duration_in_months=duration_in_months if not is_current else 0,
         )
 
         # Generate country-specific address data
@@ -75,13 +75,17 @@ class GenerateUserPersona:
             country=country,
             administrative_division=self.faker.country_state(country),
             locality=self.faker.city(),
-            county=self.faker.county() if country in ("United States", "United Kingdom") else None,
+            county=(
+                self.faker.county()
+                if country in ("United States", "United Kingdom")
+                else None
+            ),
             unit=str(self.faker.random_number(digits=3)),
             address=self.faker.street_address(),
             postal_code=self.faker.country_postal_code(country),
             start_date=start_date,
             end_date=None if is_current else end_date,
-            current_address=is_current
+            current_address=is_current,
         )
 
         self._addresses.append(address)
@@ -99,21 +103,26 @@ class GenerateUserPersona:
         state_of_birth: Optional[str] = None,
         city_of_birth: Optional[str] = None,
         sin: Optional[str] = None,
-    ) -> 'GenerateUserPersona':
+    ) -> "GenerateUserPersona":
         """Set the user's personal information."""
         name = BaseName(
             given_name=given_name or self.faker.first_name(),
             family_name=family_name or self.faker.last_name(),
-            additional_name=additional_name or self.faker.name()
+            additional_name=additional_name or self.faker.name(),
         )
         phone = BasePhone(
-            number=phone_number or PhoneNumberGenerator.generate_phone_number(self.faker, phone_country)
+            number=phone_number
+            or PhoneNumberGenerator.generate_phone_number(self.faker, phone_country)
         )
-        birth_date = date_of_birth or self.faker.date_of_birth(minimum_age=18, maximum_age=80)
+        birth_date = date_of_birth or self.faker.date_of_birth(
+            minimum_age=18, maximum_age=80
+        )
         birth_location = BirthLocation(
-            country=country_of_birth or phone_country,  # Use phone country as default birth country
-            administrative_division=state_of_birth or self.faker.country_state(country_of_birth or phone_country),
-            locality=city_of_birth or self.faker.city()
+            country=country_of_birth
+            or phone_country,  # Use phone country as default birth country
+            administrative_division=state_of_birth
+            or self.faker.country_state(country_of_birth or phone_country),
+            locality=city_of_birth or self.faker.city(),
         )
         self._personal_info = PersonalInformation(
             name=name,
@@ -124,33 +133,45 @@ class GenerateUserPersona:
         )
         return self
 
-    def with_email(self, email: Optional[str] = None) -> 'GenerateUserPersona':
+    def with_email(self, email: Optional[str] = None) -> "GenerateUserPersona":
         """Set the applicant's email."""
         if email:
             self._email_address = email
         else:
             # Generate random 6 character string
-            random_str = ''.join(self.faker.random_choices(elements=string.ascii_lowercase, length=6))
+            random_str = "".join(
+                self.faker.random_choices(elements=string.ascii_lowercase, length=6)
+            )
             # Get first and last name from personal info if available
             if self._personal_info:
                 given_name = self._personal_info.name.given_name.lower()
                 family_name = self._personal_info.name.family_name.lower()
-                self._email_address = f"{given_name}_{family_name}_{random_str}@companyinbox.com"
+                self._email_address = (
+                    f"{given_name}_{family_name}_{random_str}@companyinbox.com"
+                )
             else:
                 # Fallback to random names if personal info not set
                 first_name = self.faker.first_name().lower()
                 last_name = self.faker.last_name().lower()
-                self._email_address = f"{first_name}_{last_name}_{random_str}@companyinbox.com"
+                self._email_address = (
+                    f"{first_name}_{last_name}_{random_str}@companyinbox.com"
+                )
         return self
 
-    def with_password(self, password: Optional[str] = None) -> 'GenerateUserPersona':
+    def with_password(self, password: Optional[str] = None) -> "GenerateUserPersona":
         """Set the user's password.
 
         Args:
             password: Optional password. If not provided, generate a random one.
         """
         if not password:
-            password = self.faker.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True)
+            password = self.faker.password(
+                length=10,
+                special_chars=True,
+                digits=True,
+                upper_case=True,
+                lower_case=True,
+            )
         # Add conditions if fetching password from valut/aws
 
         self._password = password
@@ -163,5 +184,5 @@ class GenerateUserPersona:
             addresses=self._addresses,
             email_address=self._email_address,
             password=self._password,
-            frequent_shopper=self._frequent_shopper
+            frequent_shopper=self._frequent_shopper,
         )

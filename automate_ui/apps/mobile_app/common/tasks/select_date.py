@@ -1,9 +1,7 @@
-from datetime import date, datetime
+from datetime import date
+from datetime import datetime
 
-from automate_ui.screenplay.core.actor import Actor
-from automate_ui.apps.mobile_app.common.android_calendar import (
-    AndroidCalendar,
-)
+from automate_ui.apps.mobile_app.common.android_calendar import AndroidCalendar
 from automate_ui.apps.mobile_app.common.android_calendar import (
     MonthVisibility as AndroidMonthVisibility,
 )
@@ -13,25 +11,20 @@ from automate_ui.apps.mobile_app.common.android_calendar import (
 from automate_ui.apps.mobile_app.common.android_calendar import (
     YearVisibility as AndroidYearVisibility,
 )
-from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import (
-    DatePickerWheel,
-    SelectedDay,
-)
+from automate_ui.apps.mobile_app.common.constants import MAX_SCROLL_ATTEMPTS
+from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import DatePickerWheel
+from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import SelectedDay
 from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import (
     SelectedMonth as IOSSelectedMonth,
 )
-from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import (
-    SelectedYear,
-)
-from automate_ui.apps.mobile_app.common.constants import MAX_SCROLL_ATTEMPTS
+from automate_ui.apps.mobile_app.common.ios_date_picker_wheel import SelectedYear
+from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.tasks.click import Click
+from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
+from automate_ui.screenplay.core.mobile.tasks.common import register_task
+from automate_ui.screenplay.core.mobile.tasks.common import TaskPerformer
 from automate_ui.screenplay.core.mobile.tasks.scroll import Scroll
 from automate_ui.screenplay.core.mobile.tasks.tap import Tap
-from automate_ui.screenplay.core.mobile.tasks.common import (
-    BaseTask,
-    TaskPerformer,
-    register_task,
-)
 
 
 class SelectDate(TaskPerformer):

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import yaml
 
@@ -18,7 +18,7 @@ def load_yaml_config(file_path: str) -> Dict[str, Any]:
         yaml.YAMLError: If the YAML file is malformed
     """
     try:
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             return yaml.safe_load(f)
     except FileNotFoundError:
         raise FileNotFoundError(
@@ -29,7 +29,9 @@ def load_yaml_config(file_path: str) -> Dict[str, Any]:
     except yaml.YAMLError as e:
         raise yaml.YAMLError(f"Error parsing YAML file {file_path}: {e}")
     except PermissionError:
-        raise PermissionError(f"Permission denied accessing configuration file: {file_path}")
+        raise PermissionError(
+            f"Permission denied accessing configuration file: {file_path}"
+        )
     except Exception as e:
         raise Exception(f"Unexpected error loading configuration file {file_path}: {e}")
 
@@ -48,7 +50,7 @@ def get_nested_value(config: Dict[str, Any], key_path: str) -> Any:
     Raises:
         KeyError: If the key path doesn't exist in the configuration
     """
-    keys = key_path.split('.')
+    keys = key_path.split(".")
     current = config
 
     for key in keys:
@@ -77,4 +79,6 @@ def get_nested_value_safe(config: Dict[str, Any], key_path: str) -> Any:
     try:
         return get_nested_value(config, key_path)
     except KeyError:
-        raise KeyError(f"Configuration key '{key_path}' not found. Please check your configuration file.")
+        raise KeyError(
+            f"Configuration key '{key_path}' not found. Please check your configuration file."
+        )

@@ -1,15 +1,19 @@
-from typing import Optional
-from pydantic import Field
 from datetime import datetime
+from typing import Optional
+
+from pydantic import Field
 
 from ..base.address import BaseAddress
 
 
 class UserAddress(BaseAddress):
     """Address model with date fields and current address flag."""
+
     start_date: datetime = Field(..., description="Start date of residence")
     end_date: Optional[datetime] = None
-    current_address: bool = Field(default=False, description="Whether this is the current address")
+    current_address: bool = Field(
+        default=False, description="Whether this is the current address"
+    )
 
     @property
     def start_date_day(self) -> str:

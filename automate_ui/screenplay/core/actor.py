@@ -1,19 +1,18 @@
 from __future__ import annotations
-from typing import List, Type, Union, TypeVar, TYPE_CHECKING
 
+from typing import List, Type, TYPE_CHECKING, TypeVar, Union
+
+from automate_ui.screenplay.core.exceptions import UnableToPerformError
 from automate_ui.screenplay.core.narrator import Narrator
-from .exceptions import UnableToPerformError
-from .protocols import Forgettable, Performable, Describable
+from automate_ui.screenplay.core.protocols import Describable
+from automate_ui.screenplay.core.protocols import Forgettable
+from automate_ui.screenplay.core.protocols import Performable
 
 if TYPE_CHECKING:
-    from .models.user.user import (
-        User
-    )
+    from .models.user.user import User
 
 T_Ability = TypeVar("T_Ability", bound=Forgettable)
-T_Persona = Union[
-    "User",
-    None]
+T_Persona = Union["User", None]
 
 
 class Actor:

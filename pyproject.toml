@@ -71,3 +71,8 @@ markers = [
     "smoke: for basic fast sanity tests",
     "e2e: journey style tests"
 ]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["automate_ui*"]
+exclude = ["screenshots*", "node_modules*"]

@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from automate_ui.screenplay.core.actor import Actor
 from automate_ui.apps.mobile_app.common.android_calendar.calendar import AndroidCalendar
+from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.questions.targets_attribute import (
     TargetsAttribute,
 )

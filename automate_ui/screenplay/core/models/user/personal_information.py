@@ -1,25 +1,33 @@
-from typing import Optional
 from datetime import date
-from pydantic import BaseModel, Field, model_validator
+from typing import Optional
 
+from pydantic import BaseModel
+from pydantic import Field
+
+from ..base.address import ShortAddress
 from ..base.name import BaseName
 from ..base.phone import BasePhone
-from ..base.address import ShortAddress
 
 
 class BirthLocation(ShortAddress):
     """Birth location information using standardized location fields."""
+
     pass
 
 
 class PersonalInformation(BaseModel):
     """Model combining registration and personal information."""
+
     name: BaseName = Field(..., description="User's name")
     phone: BasePhone = Field(..., description="User's phone number")
     date_of_birth: date = Field(..., description="Date of birth")
     birth_location: BirthLocation = Field(..., description="Birth location details")
-    agree_to_privacy_policy: bool = Field(default=True, description="Privacy policy agreement")
-    subscribe_to_mailing_list: bool = Field(default=False, description="Marketing subscription opt-in")
+    agree_to_privacy_policy: bool = Field(
+        default=True, description="Privacy policy agreement"
+    )
+    subscribe_to_mailing_list: bool = Field(
+        default=False, description="Marketing subscription opt-in"
+    )
     sin: Optional[str] = Field(None, description="Social Insurance Number (Canada)")
 
     @property

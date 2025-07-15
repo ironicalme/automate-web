@@ -17,7 +17,13 @@ class ConfigManager:
     Manages configuration by combining AWS secrets with environment-specific URLs.
     """
 
-    def __init__(self, yaml_file_path: str, environment: str, aws_secret_name: Optional[str] = None, aws_region: Optional[str] = None):
+    def __init__(
+        self,
+        yaml_file_path: str,
+        environment: str,
+        aws_secret_name: Optional[str] = None,
+        aws_region: Optional[str] = None,
+    ):
         """
         Initialize the config manager.
 
@@ -36,7 +42,7 @@ class ConfigManager:
         self.secrets = get_config_with_aws_fallback(
             yaml_file_path=yaml_file_path,
             aws_secret_name=aws_secret_name,
-            aws_region=aws_region
+            aws_region=aws_region,
         )
 
         # Load environment-specific URLs
@@ -92,12 +98,12 @@ class ConfigManager:
         return {
             "public": {
                 "key": self.get_secret("api.public.key"),
-                "base_url": self.get_url("api.public", "base_url")
+                "base_url": self.get_url("api.public", "base_url"),
             },
             "private": {
                 "admin_key": self.get_secret("api.private.admin_key"),
-                "internal_url": self.get_url("api.private", "internal_url")
-            }
+                "internal_url": self.get_url("api.private", "internal_url"),
+            },
         }
 
     def get_web_app_config(self) -> Dict[str, str]:
@@ -109,10 +115,8 @@ class ConfigManager:
         """
         return {
             "base_url": self.get_url("web_app", "base_url"),
-            "admin_url": self.get_url("web_app", "admin_url")
+            "admin_url": self.get_url("web_app", "admin_url"),
         }
-
-
 
     def get_aws_config(self) -> Dict[str, Any]:
         """
@@ -124,7 +128,7 @@ class ConfigManager:
         return {
             "region": self.get_secret("aws.region"),
             "access_key": self.get_secret("aws.access_key"),
-            "secret_key": self.get_secret("aws.secret_key")
+            "secret_key": self.get_secret("aws.secret_key"),
         }
 
     def get_all_secrets(self) -> Dict[str, Any]:
@@ -137,7 +141,12 @@ class ConfigManager:
         return self.secrets
 
 
-def create_config_manager(yaml_file_path: str, environment: str, aws_secret_name: Optional[str] = None, aws_region: Optional[str] = None) -> ConfigManager:
+def create_config_manager(
+    yaml_file_path: str,
+    environment: str,
+    aws_secret_name: Optional[str] = None,
+    aws_region: Optional[str] = None,
+) -> ConfigManager:
     """
     Create a config manager instance.
 

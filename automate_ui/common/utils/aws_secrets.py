@@ -20,14 +20,16 @@ def check_aws_credentials() -> bool:
     try:
         # Try to create a session to check credentials
         session = boto3.Session()
-        sts = session.client('sts')
+        sts = session.client("sts")
         sts.get_caller_identity()
         return True
     except (NoCredentialsError, NoRegionError, ClientError):
         return False
 
 
-def get_secret_from_aws(secret_name: str, region_name: str = None) -> Optional[Dict[str, Any]]:
+def get_secret_from_aws(
+    secret_name: str, region_name: str = None
+) -> Optional[Dict[str, Any]]:
     """
     Retrieve a secret from AWS Secrets Manager.
 
@@ -46,27 +48,26 @@ def get_secret_from_aws(secret_name: str, region_name: str = None) -> Optional[D
         if region_name:
             session = boto3.session.Session()
             client = session.client(
-                service_name='secretsmanager',
-                region_name=region_name
+                service_name="secretsmanager", region_name=region_name
             )
         else:
-            client = boto3.client('secretsmanager')
+            client = boto3.client("secretsmanager")
 
         # Get the secret
         response = client.get_secret_value(SecretId=secret_name)
 
         # Parse the secret string as JSON
-        if 'SecretString' in response:
-            return json.loads(response['SecretString'])
+        if "SecretString" in response:
+            return json.loads(response["SecretString"])
         else:
             # Handle binary secrets
-            return {'binary_secret': response['SecretBinary']}
+            return {"binary_secret": response["SecretBinary"]}
 
     except ClientError as e:
-        error_code = e.response['Error']['Code']
-        if error_code == 'ResourceNotFoundException':
+        error_code = e.response["Error"]["Code"]
+        if error_code == "ResourceNotFoundException":
             print(f"Secret '{secret_name}' not found in AWS Secrets Manager")
-        elif error_code == 'AccessDeniedException':
+        elif error_code == "AccessDeniedException":
             print(f"Access denied to secret '{secret_name}' in AWS Secrets Manager")
         else:
             print(f"AWS Secrets Manager error for '{secret_name}': {e}")
@@ -80,9 +81,7 @@ def get_secret_from_aws(secret_name: str, region_name: str = None) -> Optional[D
 
 
 def get_config_with_aws_fallback(
-    yaml_file_path: str,
-    aws_secret_name: str = None,
-    aws_region: str = None
+    yaml_file_path: str, aws_secret_name: str = None, aws_region: str = None
 ) -> Dict[str, Any]:
     """
     Get configuration with AWS Secrets Manager fallback.
@@ -103,15 +102,21 @@ def get_config_with_aws_fallback(
     """
     # Check if AWS credentials are available
     if check_aws_credentials() and aws_secret_name:
-        print(f"AWS credentials available. Attempting to fetch secret '{aws_secret_name}' from AWS Secrets Manager...")
+        print(
+            f"AWS credentials available. Attempting to fetch secret '{aws_secret_name}' from AWS Secrets Manager..."
+        )
 
         # Try to get secret from AWS
         aws_config = get_secret_from_aws(aws_secret_name, aws_region)
         if aws_config:
-            print(f"Successfully loaded configuration from AWS Secrets Manager: {aws_secret_name}")
+            print(
+                f"Successfully loaded configuration from AWS Secrets Manager: {aws_secret_name}"
+            )
             return aws_config
         else:
-            print(f"Failed to retrieve secret '{aws_secret_name}' from AWS. Falling back to YAML file...")
+            print(
+                f"Failed to retrieve secret '{aws_secret_name}' from AWS. Falling back to YAML file..."
+            )
 
     # Fallback to YAML file
     print(f"Loading configuration from YAML file: {yaml_file_path}")
@@ -129,7 +134,7 @@ def get_nested_config_value(
     yaml_file_path: str,
     key_path: str,
     aws_secret_name: str = None,
-    aws_region: str = None
+    aws_region: str = None,
 ) -> Any:
     """
     Get a nested configuration value with AWS Secrets Manager fallback.

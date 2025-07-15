@@ -1,4 +1,5 @@
 from typing import Any
+
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.target import Target
 

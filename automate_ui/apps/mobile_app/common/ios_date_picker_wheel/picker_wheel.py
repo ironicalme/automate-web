@@ -1,4 +1,5 @@
-from automate_ui.screenplay.core.mobile.target import LocatorStrategy, Target
+from automate_ui.screenplay.core.mobile.target import LocatorStrategy
+from automate_ui.screenplay.core.mobile.target import Target
 
 
 class DatePickerWheel:

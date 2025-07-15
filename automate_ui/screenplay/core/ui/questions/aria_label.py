@@ -11,7 +11,10 @@ class _AriaLabels:
         self.target = target
 
     def seen_by(self, actor: Actor) -> list[str]:
-        return [locator.get_attribute('aria-label') for locator in self.target.found_by(actor).all()]
+        return [
+            locator.get_attribute("aria-label")
+            for locator in self.target.found_by(actor).all()
+        ]
 
 
 class AriaLabel:
@@ -31,7 +34,7 @@ class AriaLabel:
         return _AriaLabels(target)
 
     def seen_by(self, actor: Actor) -> str:
-        return self.target.found_by(actor).get_attribute('aria-label')
+        return self.target.found_by(actor).get_attribute("aria-label")
 
 
 __all__ = ["AriaLabel"]

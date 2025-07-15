@@ -1,12 +1,12 @@
 from copy import deepcopy
+from enum import Enum
 from typing import Optional
 
 from playwright.sync_api import Locator
 
 from automate_ui.screenplay.abilities import BrowseTheWeb
-from ..actor import Actor
-from ..exceptions import TargetingError
-from enum import Enum
+from automate_ui.screenplay.core.actor import Actor
+from automate_ui.screenplay.core.exceptions import TargetingError
 
 
 class LocatorStrategy(Enum):
@@ -103,9 +103,7 @@ class Target:
         return Target(name)
 
     def located_by(
-        self,
-        locator_strategy: LocatorStrategy | FrameLocatorStrategy,
-        locator: str
+        self, locator_strategy: LocatorStrategy | FrameLocatorStrategy, locator: str
     ):
         self.locator = locator
         self.locator_strategy = locator_strategy
@@ -151,19 +149,26 @@ class Target:
         locator_method_name = self.locator_strategy.value[0]
 
         if page is None:
-            raise TargetingError(f"There is no active page! {actor} cannot find the {self}.")
+            raise TargetingError(
+                f"There is no active page! {actor} cannot find the {self}."
+            )
         if not hasattr(page, locator_method_name):
-            raise TargetingError(f"Playwright locator method: '{locator_method_name}' not found")
+            raise TargetingError(
+                f"Playwright locator method: '{locator_method_name}' not found"
+            )
 
         if self.parent:
             parent_locator_method_name = self.parent.locator_strategy.value[0]
             parent_locator_kwargs = self.parent._locator_kwargs()
 
             if self.iframe_locator:
-                parent_locator: Locator = page.frame_locator(self.iframe_locator) \
-                    .__getattribute__(parent_locator_method_name)(**parent_locator_kwargs)
+                parent_locator: Locator = page.frame_locator(
+                    self.iframe_locator
+                ).__getattribute__(parent_locator_method_name)(**parent_locator_kwargs)
             else:
-                parent_locator: Locator = page.__getattribute__(parent_locator_method_name)(**parent_locator_kwargs)
+                parent_locator: Locator = page.__getattribute__(
+                    parent_locator_method_name
+                )(**parent_locator_kwargs)
 
             if self.parent.index is not None:
                 parent_locator = parent_locator.nth(self.parent.index)
@@ -172,10 +177,13 @@ class Target:
 
         else:
             if self.iframe_locator:
-                locator: Locator = page.frame_locator(self.iframe_locator) \
-                    .__getattribute__(locator_method_name)(**self._locator_kwargs())
+                locator: Locator = page.frame_locator(
+                    self.iframe_locator
+                ).__getattribute__(locator_method_name)(**self._locator_kwargs())
             else:
-                locator: Locator = page.__getattribute__(locator_method_name)(**self._locator_kwargs())
+                locator: Locator = page.__getattribute__(locator_method_name)(
+                    **self._locator_kwargs()
+                )
 
         if self.index is not None:
             return locator.nth(self.index)

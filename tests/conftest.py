@@ -12,6 +12,7 @@ from automate_ui.screenplay.core.mobile.constants import PACKAGE_NAME
 from automate_ui.screenplay.core.models.user.generate_user import GenerateUserPersona
 from automate_ui.screenplay.core.models.user.user import User
 from automate_ui.screenplay.core.ui.tasks.screenshot_page import ScreenshotPage
+
 # from playwright._impl._api_structures import ViewportSize
 from automate_ui.common.utils.config_manager import create_config_manager
 
@@ -22,30 +23,30 @@ def pytest_addoption(parser):
         "--yaml-config",
         action="store",
         default="local_secrets.yaml",
-        help="Path to YAML configuration file (default: local_secrets.yaml)"
+        help="Path to YAML configuration file (default: local_secrets.yaml)",
     )
     parser.addoption(
         "--aws-secret",
         action="store",
         default=None,
-        help="AWS Secrets Manager secret name to use instead of YAML"
+        help="AWS Secrets Manager secret name to use instead of YAML",
     )
     parser.addoption(
         "--aws-region",
         action="store",
         default=None,
-        help="AWS region for Secrets Manager (default: uses AWS default)"
+        help="AWS region for Secrets Manager (default: uses AWS default)",
     )
     parser.addoption(
         "--env",
         action="store",
         default="development",
         choices=["development", "staging", "production"],
-        help="Environment to use for configuration (default: development)"
+        help="Environment to use for configuration (default: development)",
     )
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def config_manager(request):
     """
     Pytest fixture to provide a config manager that combines secrets with environment URLs.
@@ -71,20 +72,17 @@ def config_manager(request):
         yaml_file_path=yaml_file_path,
         environment=environment,
         aws_secret_name=aws_secret_name,
-        aws_region=aws_region
+        aws_region=aws_region,
     )
 
 
-
-
-
-@pytest.fixture(scope='class')
+@pytest.fixture(scope="class")
 def actor_factory():
     def generate_actor(
         name: str,
         abilities,
         persona: Optional[Union["User"]] = None,  # Add more Personas as required
-        timeout: Optional[int] = 1000 * 60
+        timeout: Optional[int] = 1000 * 60,
     ) -> Actor:
         actor = Actor(name=name)
         actor.add_abilities(*abilities)
@@ -102,22 +100,23 @@ def actor_factory():
             browse_the_web.current_page = page
             browse_the_web.pages.append(page)
         return actor
+
     return generate_actor
 
 
 @pytest.fixture
 def frequent_shopper(
-    playwright,
-    actor_factory,
-    take_screenshot_on_test_failure
+    playwright, actor_factory, take_screenshot_on_test_failure
 ) -> Actor:
-    persona = GenerateUserPersona() \
-        .with_personal_info(phone_country="Canada") \
-        .with_address(country="Canada") \
-        .with_personal_info() \
-        .with_email() \
-        .with_password() \
+    persona = (
+        GenerateUserPersona()
+        .with_personal_info(phone_country="Canada")
+        .with_address(country="Canada")
+        .with_personal_info()
+        .with_email()
+        .with_password()
         .build()
+    )
 
     user = actor_factory(
         name=persona.personal_information.name.given_name,
@@ -125,7 +124,7 @@ def frequent_shopper(
             BrowseTheWeb.using_chromium(playwright),
             # Add more abilities as requred
         ),
-        persona=persona
+        persona=persona,
     )
 
     yield user
@@ -139,24 +138,30 @@ def frequent_shopper(
 def take_screenshot_on_test_failure(request):
     def take_screenshot(actor: Actor):
 
-        actor_involved_in_failed_test = request.node.rep_setup.failed or request.node.rep_call.failed
+        actor_involved_in_failed_test = (
+            request.node.rep_setup.failed or request.node.rep_call.failed
+        )
 
         if actor_involved_in_failed_test:
             partial_path = f"{request.node.name}/{actor.name.replace(' ', '-').lower()}/screenshot.png"
-            actor.attempts_to(ScreenshotPage.saved_as(file_name=partial_path, file_type="png"))
+            actor.attempts_to(
+                ScreenshotPage.saved_as(file_name=partial_path, file_type="png")
+            )
+
     return take_screenshot
 
 
 # Mobile
 
+
 @pytest.fixture
 def android_phone_capabilities() -> PhoneCapabilities:
     phone_capabilities = PhoneCapabilities(
-        platform_name='Android',
-        automation_name='uiautomator2',
-        device_name='Medium_Phone_API_35',
-        language='en',
-        locale='US',
+        platform_name="Android",
+        automation_name="uiautomator2",
+        device_name="Medium_Phone_API_35",
+        language="en",
+        locale="US",
         session_timeout=Timeouts.APPIUM_SESSION_TIMEOUT,
     )
     return phone_capabilities
@@ -165,10 +170,10 @@ def android_phone_capabilities() -> PhoneCapabilities:
 @pytest.fixture
 def ios_phone_capabilities() -> PhoneCapabilities:
     phone_capabilities = PhoneCapabilities(
-        platform_name='iOS',
-        automation_name='XCUITest',
-        device_name='iPhone 15 Pro Max',
-        platform_version='18.1',
+        platform_name="iOS",
+        automation_name="XCUITest",
+        device_name="iPhone 15 Pro Max",
+        platform_version="18.1",
         no_reset=False,
         session_timeout=Timeouts.APPIUM_SESSION_TIMEOUT,
     )
@@ -202,7 +207,11 @@ def create_actor_with_phone(
                 if driver.is_app_installed(package_name):
                     driver.remove_app(package_name)
 
-                app_path = Path("resources/MyApp.apk" if platform == "android" else "resources/MyApp.app")
+                app_path = Path(
+                    "resources/MyApp.apk"
+                    if platform == "android"
+                    else "resources/MyApp.app"
+                )
                 if not Path.exists(app_path):
                     raise FileNotFoundError(
                         f"The app installable (.apk/.ipa) was not found at path: {app_path}."
@@ -213,7 +222,9 @@ def create_actor_with_phone(
                 elif platform == "android":
                     driver.install_app(str(app_path))
                 else:
-                    raise RuntimeError(f"Cannot install the app with the installable provided at path: {app_path}")
+                    raise RuntimeError(
+                        f"Cannot install the app with the installable provided at path: {app_path}"
+                    )
 
                 driver.activate_app(package_name)
 
@@ -226,34 +237,26 @@ def create_actor_with_phone(
 
 
 @pytest.fixture
-def android_actor_factory(
-    create_actor_with_phone,
-    android_phone_capabilities
-):
+def android_actor_factory(create_actor_with_phone, android_phone_capabilities):
     def generate_android_actor(
         name: str,
         persona: Optional["User"] = None,
     ) -> Actor:
         return create_actor_with_phone(
-            name=name,
-            phone_capabilities=android_phone_capabilities,
-            persona=persona
+            name=name, phone_capabilities=android_phone_capabilities, persona=persona
         )
+
     return generate_android_actor
 
 
 @pytest.fixture
-def ios_actor_factory(
-    create_actor_with_phone,
-    ios_phone_capabilities
-):
+def ios_actor_factory(create_actor_with_phone, ios_phone_capabilities):
     def generate_ios_actor(
         name: str,
         persona: Optional["User"] = None,
     ) -> Actor:
         return create_actor_with_phone(
-            name=name,
-            phone_capabilities=ios_phone_capabilities,
-            persona=persona
+            name=name, phone_capabilities=ios_phone_capabilities, persona=persona
         )
+
     return generate_ios_actor
