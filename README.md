@@ -184,34 +184,55 @@ source venv/bin/activate
 make test
 ```
 
+### 4. Mobile Setup Steps
+
+#### Mobile Automation Setup (Node.js & Appium)
+
+To streamline mobile environment setup, this project uses a `package.json` and Makefile targets for Appium and driver installation.
+
+#### One-Step Mobile Setup
+
+To install Appium and the uiautomator2 driver:
+```bash
+make local-mobile-setup
+```
+This will:
+- Install Appium locally (in `node_modules`)
+- Install the uiautomator2 driver for Android automation
+
+#### Clean Mobile Environment
+
+To remove all Node.js/Appium dependencies and lock files:
+```bash
+make clean-mobile
+```
+
+#### Rebuild Mobile Environment
+
+To fully clean and reinstall the mobile automation environment:
+```bash
+make rebuild-local-mobile-setup
+```
+
+#### How it works
+- The `package.json` declares Appium as a dependency and provides a script to install the uiautomator2 driver.
+- The Makefile targets automate the install, clean, and rebuild steps for mobile automation.
+
+#### Customization
+- To add more Appium drivers (e.g., for iOS), extend the `install-appium-drivers` script in `package.json` or add new scripts.
+
+
 
 ## Development Commands
 
 ### Code Quality
 ```bash
 # Lint code
-make lint
+scripts/lint
 
 # Format code
-make format
+scripts/format
 
-# Clean up generated files
-make clean
-```
-
-### Testing
-```bash
-# Run all unit tests
-make test
-
-### Package Management
-```bash
-# Build package
-make package
-
-# Clean package artifacts
-make package-clean
-```
 
 ## Usage Examples
 
@@ -254,39 +275,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This project is currently under active development. Some features may be subject to change.
-
-## Mobile Automation Setup (Node.js & Appium)
-
-To streamline mobile environment setup, this project uses a `package.json` and Makefile targets for Appium and driver installation.
-
-### One-Step Mobile Setup
-
-To install Appium and the uiautomator2 driver:
-```bash
-make mobile-setup
-```
-This will:
-- Install Appium locally (in `node_modules`)
-- Install the uiautomator2 driver for Android automation
-
-### Clean Mobile Environment
-
-To remove all Node.js/Appium dependencies and lock files:
-```bash
-make clean-mobile
-```
-
-### Rebuild Mobile Environment
-
-To fully clean and reinstall the mobile automation environment:
-```bash
-make rebuild-mobile-setup
-```
-
-### How it works
-- The `package.json` declares Appium as a dependency and provides a script to install the uiautomator2 driver.
-- The Makefile targets automate the install, clean, and rebuild steps for mobile automation.
-
-### Customization
-- To add more Appium drivers (e.g., for iOS), extend the `install-appium-drivers` script in `package.json` or add new scripts.
-

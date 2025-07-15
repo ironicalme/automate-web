@@ -4,12 +4,13 @@
   "description": "Mobile automation setup for Appium and drivers.",
   "private": true,
   "scripts": {
-    "install-appium-drivers": "appium driver install uiautomator2 || exit 0"
+    "install-appium-drivers": "appium driver uninstall uiautomator2 || true && appium driver install uiautomator2 || true"
   },
   "dependencies": {
     "appium": "^2.19.0"
   },
   "devDependencies": {
-    "appium-uiautomator2-driver": "^4.2.5"
+    "appium-uiautomator2-driver": "^4.2.5",
+    "typescript": "^5.8.3"
   }
 }

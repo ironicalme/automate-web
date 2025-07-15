@@ -35,17 +35,6 @@ package-clean:
 	rm -rf ./dist
 	rm -rf *.egg-info
 
-#----------------------------------------------------------
-# DEV TARGETS
-#----------------------------------------------------------
-
-.PHONY: lint
-lint: $(VENV)
-	./dev_scripts/lint.sh
-
-.PHONY: format
-format: $(VENV)
-	./dev_scripts/format.sh
 
 .PHONY: clean
 clean: package-clean
@@ -71,11 +60,13 @@ local-setup: venv install-playwright
 
 rebuild-local: clean local-setup
 
-mobile-setup:
+local-mobile-setup:
 	npm install
+	npm install typescript --save-dev
 	npm run install-appium-drivers
 
 clean-mobile:
 	rm -rf node_modules package-lock.json
+	npm cache clean --force
 
-rebuild-mobile-setup: clean-mobile mobile-setup
+rebuild-local-mobile-setup: clean-mobile local-mobile-setup
