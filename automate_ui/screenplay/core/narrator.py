@@ -16,7 +16,9 @@ class Narrator:
         _logger = logging.getLogger(name)
         _logger.setLevel(logging.INFO)
         handler = logging.StreamHandler(sys.stdout)
-        formatter = logging.Formatter("[%(asctime)s] [%(name)s] %(levelname)s - %(message)s")
+        formatter = logging.Formatter(
+            "[%(asctime)s] [%(name)s] %(levelname)s - %(message)s"
+        )
         handler.setFormatter(formatter)
         _logger.addHandler(handler)
         self.logger = IndentedLoggerAdapter(_logger)

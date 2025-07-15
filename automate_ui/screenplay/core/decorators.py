@@ -1,7 +1,7 @@
 from typing import Any, Callable
 
-import wrapt
 from deepdiff import DeepDiff
+import wrapt
 
 from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
 from automate_ui.screenplay.core.actor import Actor

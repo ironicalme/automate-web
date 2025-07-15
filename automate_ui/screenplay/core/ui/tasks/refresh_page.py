@@ -10,7 +10,7 @@ class RefreshPage:
 
     @classmethod
     def describe(cls) -> str:
-        return 'refreshes the page'
+        return "refreshes the page"
 
     @classmethod
     def in_seconds(cls, wait_time_in_seconds: float) -> "RefreshPage":

@@ -1,10 +1,12 @@
+from abc import ABC
+from abc import abstractmethod
 import logging
-from abc import ABC, abstractmethod
 from typing import Dict, List, Optional, Type, TypeVar, Union
 from urllib.parse import urljoin
 
+from pydantic import BaseModel
+from pydantic import ValidationError
 import requests
-from pydantic import BaseModel, ValidationError
 
 from automate_ui.screenplay.core.exceptions import RestClientError
 

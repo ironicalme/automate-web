@@ -3,18 +3,18 @@ from typing import Optional
 
 from automate_ui.screenplay.abilities.use_phone import UsePhone
 from automate_ui.screenplay.core.actor import Actor
-from automate_ui.screenplay.core.mobile.target import Target
 from automate_ui.screenplay.core.exceptions import UnableToAct
-from automate_ui.screenplay.core.mobile.tasks.common import (
-    BaseTask,
-    register_task,
-    TaskPerformer
-)
+from automate_ui.screenplay.core.mobile.target import Target
+from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
+from automate_ui.screenplay.core.mobile.tasks.common import register_task
+from automate_ui.screenplay.core.mobile.tasks.common import TaskPerformer
+
 
 def _send_keys_slowly(target: Target, text, actor: Actor, delay=0.05):
     for char in text:
         target.found_by(actor).send_keys(char)
         time.sleep(delay)
+
 
 class TypeText(TaskPerformer):
     target: Optional[Target]
@@ -25,7 +25,7 @@ class TypeText(TaskPerformer):
         target: Optional[Target] = None,
         mask: bool = False,
         override: bool = False,
-        sequentially: bool = False
+        sequentially: bool = False,
     ) -> None:
         super().__init__(
             TypeText,
@@ -33,7 +33,7 @@ class TypeText(TaskPerformer):
             target=target,
             mask=mask,
             override=override,
-            sequentially=sequentially
+            sequentially=sequentially,
         )
 
     @staticmethod
@@ -62,19 +62,19 @@ class AndroidTypeText(BaseTask):
         text: str,
         mask: bool,
         override: bool = False,
-        sequentially: bool = False
+        sequentially: bool = False,
     ) -> None:
         self.target = target
         self._text = text
         self.mask = mask
         self.override = override
-        self.sequentially=sequentially
+        self.sequentially = sequentially
         self.text_to_log = "[REDACTED]" if mask else text
 
     def describe(self) -> str:
         if self.text_to_log:
             return f'enters "{self.text_to_log}" into the {self.target}.'
-        return f'refrains from typing anything into the {self.target}'
+        return f"refrains from typing anything into the {self.target}"
 
     def perform(self, actor: Actor) -> None:
 
@@ -110,19 +110,19 @@ class IosTypeText(BaseTask):
         text: str,
         mask: bool,
         override: bool = False,
-        sequentially: bool = False
+        sequentially: bool = False,
     ) -> None:
         self.target = target
         self._text = text
         self.mask = mask
         self.override = override
-        self.sequentially=sequentially
+        self.sequentially = sequentially
         self.text_to_log = "[REDACTED]" if mask else text
 
     def describe(self) -> str:
         if self.text_to_log:
             return f'enters "{self.text_to_log}" into the {self.target}.'
-        return f'refrains from typing anything into the {self.target}'
+        return f"refrains from typing anything into the {self.target}"
 
     def perform(self, actor: Actor) -> None:
         driver = actor.get_ability(UsePhone).driver
@@ -150,7 +150,7 @@ class IosTypeText(BaseTask):
         else:
             element.send_keys(self._text)
 
-        tap_outside_x = element.location['x'] - 1
-        tap_outside_y = element.location['y'] - 1
+        tap_outside_x = element.location["x"] - 1
+        tap_outside_y = element.location["y"] - 1
         if driver.is_keyboard_shown():
             driver.tap([(tap_outside_x, tap_outside_y)])

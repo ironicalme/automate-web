@@ -8,7 +8,10 @@ class _DataTestIDs:
         self.target = target
 
     def answered_by(self, actor: Actor) -> list[str]:
-        return [locator.get_attribute('data-testid') for locator in self.target.found_by(actor).all()]
+        return [
+            locator.get_attribute("data-testid")
+            for locator in self.target.found_by(actor).all()
+        ]
 
     seen_by = answered_by
 
@@ -27,6 +30,6 @@ class DataTestID:
         return _DataTestIDs(target)
 
     def answered_by(self, actor: Actor) -> str:
-        return self.target.found_by(actor).get_attribute('data-testid')
+        return self.target.found_by(actor).get_attribute("data-testid")
 
     seen_by = answered_by

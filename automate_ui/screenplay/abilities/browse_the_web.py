@@ -1,6 +1,7 @@
 from typing import Union
 
-from playwright.sync_api import Browser, Page
+from playwright.sync_api import Browser
+from playwright.sync_api import Page
 
 
 class BrowseTheWeb:

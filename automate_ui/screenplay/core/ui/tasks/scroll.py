@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
-from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
+from typing import Optional, TYPE_CHECKING
+
 from automate_ui.enums.keyboard_key import KeyboardKey
-from automate_ui.screenplay.tasks.press_key import PressKey
+from automate_ui.screenplay.abilities.browse_the_web import BrowseTheWeb
+from automate_ui.screenplay.core.ui.tasks.press_key import PressKey
 
 if TYPE_CHECKING:
-    from automate_ui.screenplay.core.actor import Actor
     from typing_extensions import Self
+
+    from automate_ui.screenplay.core.actor import Actor
 
 
 class Scroll:
@@ -45,11 +47,9 @@ class Scroll:
             (e.g., `KeyboardKey.HOME` or `KeyboardKey.END`). If provided,
             `delta_x` and `delta_y` are ignored. Defaults to None.
     """
+
     def __init__(
-        self,
-        delta_x: int = 0,
-        delta_y: int = 0,
-        key: Optional[KeyboardKey] = None
+        self, delta_x: int = 0, delta_y: int = 0, key: Optional[KeyboardKey] = None
     ) -> None:
         self.delta_x = delta_x
         self.delta_y = delta_y
@@ -101,15 +101,15 @@ class Scroll:
         if not self.delta_x and not self.delta_y:
             return "nowhere"
 
-        x_dir = y_dir = x_val = y_val = x_descr = y_descr = ''
+        x_dir = y_dir = x_val = y_val = x_descr = y_descr = ""
 
         if self.delta_x:
-            x_dir = 'right' if self.delta_x > 0 else 'left'
+            x_dir = "right" if self.delta_x > 0 else "left"
             x_val = abs(self.delta_x)
             x_descr = f"{x_val} pixels {x_dir}"
 
         if self.delta_y:
-            y_dir = 'down' if self.delta_y > 0 else 'up'
+            y_dir = "down" if self.delta_y > 0 else "up"
             y_val = abs(self.delta_y)
             y_descr = f"{y_val} pixels {y_dir}"
 

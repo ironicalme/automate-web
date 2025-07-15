@@ -1,11 +1,11 @@
+from selenium.common.exceptions import TimeoutException
+
+from automate_ui.enums.timeouts import Timeouts
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.target import Target
-from selenium.common.exceptions import TimeoutException
-from automate_ui.enums.timeouts import Timeouts
 
 
 class Visible:
-
     """
     Checks if an element is visible. The behaviour is similar to Visible for Web UI.
 
@@ -27,7 +27,9 @@ class Visible:
         timeout (float): Optional; override the default timeout set by Timeouts.MOBILE_VISIBILITY_WAIT
     """
 
-    def __init__(self, target: Target, timeout: float = Timeouts.MOBILE_VISIBILITY_WAIT) -> None:
+    def __init__(
+        self, target: Target, timeout: float = Timeouts.MOBILE_VISIBILITY_WAIT
+    ) -> None:
         self.target = target
         self.timeout = timeout
 

@@ -1,4 +1,5 @@
 from typing import Any
+
 from typing_extensions import Protocol, runtime_checkable
 
 
@@ -47,4 +48,6 @@ class Matchable(Protocol):
     """Matchers are Matchable"""
 
     def matches(self, obj) -> bool:
-        ...
+        """
+        Check if this Matcher matches the given object.
+        """

@@ -12,6 +12,6 @@ class Link:
         return Link(target)
 
     def answered_by(self, actor: Actor) -> str:
-        return self.target.found_by(actor).get_attribute('href')
+        return self.target.found_by(actor).get_attribute("href")
 
     seen_by = answered_by

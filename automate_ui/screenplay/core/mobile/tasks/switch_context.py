@@ -1,10 +1,11 @@
-from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.webdriver import WebDriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+
 from automate_ui.enums.appium_context import AppiumContext
 from automate_ui.screenplay.abilities.use_phone import UsePhone
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.tasks.common import BaseTask
-from selenium.common.exceptions import TimeoutException
 
 
 class SwitchContext(BaseTask):
@@ -19,9 +20,13 @@ class SwitchContext(BaseTask):
 
         def context_available(driver: WebDriver):
             contexts = driver.contexts
-            matching_context = next((ctx for ctx in contexts if self.context.value in ctx), None)
+            matching_context = next(
+                (ctx for ctx in contexts if self.context.value in ctx), None
+            )
             if not matching_context:
-                raise RuntimeError(f"No {self.context.value} context was found. Available contexts: {contexts}")
+                raise RuntimeError(
+                    f"No {self.context.value} context was found. Available contexts: {contexts}"
+                )
             return matching_context
 
         try:

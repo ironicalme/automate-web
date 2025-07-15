@@ -27,6 +27,7 @@ class Mark:
         checked: A boolean indicating whether the element should be checked
             (True) or unchecked (False). Defaults to True.
     """
+
     def __init__(self, target: Target, checked: bool = True):
         self.target = target
         self.checked = checked
@@ -39,10 +40,10 @@ class Mark:
         # Note that in cases where the web element's state is already in desired status a log
         # will still be generated indicating that a checkmark action has taken place.
         if self.checked:
-            verb = 'checks'
+            verb = "checks"
         else:
-            verb = 'unchecks'
-        return f'{verb} the {self.target}.'
+            verb = "unchecks"
+        return f"{verb} the {self.target}."
 
     def perform(self, actor: Actor):
         self.target.found_by(actor).set_checked(checked=self.checked)

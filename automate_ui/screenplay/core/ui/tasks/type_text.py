@@ -14,7 +14,7 @@ class TypeText:
         text: str,
         mask: bool = False,
         sequentially: bool = False,
-        override: bool = True
+        override: bool = True,
     ) -> None:
         self._text = text
         self.target = None
@@ -47,7 +47,7 @@ class TypeText:
     def describe(self) -> str:
         if self.text_to_log:
             return f'enters "{self.text_to_log}" into the {self.target}.'
-        return f'refrains from typing anything into the {self.target}'
+        return f"refrains from typing anything into the {self.target}"
 
     def perform(self, actor: Actor) -> None:
         if self.target is None:

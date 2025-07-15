@@ -1,7 +1,7 @@
-from automate_ui.screenplay.core.actor import Actor
 from automate_ui.apps.mobile_app.common.android_calendar.questions.selected_month import (
     SelectedMonth,
 )
+from automate_ui.screenplay.core.actor import Actor
 
 
 class MonthVisibility:

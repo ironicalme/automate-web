@@ -1,6 +1,7 @@
 from typing import Any
 
-from hamcrest import equal_to, is_not
+from hamcrest import equal_to
+from hamcrest import is_not
 
 
 class IsNotEqualTo:

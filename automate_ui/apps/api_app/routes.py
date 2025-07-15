@@ -4,6 +4,12 @@ from automate_ui.apps.common.api.routes import URL
 
 
 @dataclass
+class Create(URL):
+    def __init__(self, base_url: str):
+        super().__init__(base_url + "create/")
+
+
+@dataclass
 class Events(URL):
     def __init__(self):
         super().__init__("events/")
@@ -13,7 +19,6 @@ class Events(URL):
 class Group(URL):
     def __init__(self, base_url: str):
         super().__init__(base_url + "group/")
-
 
 
 @dataclass
@@ -26,16 +31,6 @@ class Groups(URL):
 
     def group(self, group_id) -> Group:
         return Group(self._url, group_id)
-
-
-
-@dataclass
-class Create(URL):
-    def __init__(self, base_url: str):
-        super().__init__(base_url + "create/")
-
-
-
 
 
 @dataclass

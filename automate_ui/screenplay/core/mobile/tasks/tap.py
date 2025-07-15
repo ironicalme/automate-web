@@ -1,15 +1,17 @@
 from typing import Tuple
+
+from appium.webdriver.webelement import WebElement
+
 from automate_ui.screenplay.abilities.use_phone import UsePhone
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.mobile.target import Target
-from appium.webdriver.webelement import WebElement
 
 
 @staticmethod
 def calculate_element_center(element: WebElement) -> Tuple[int, int]:
     location = element.location
     size = element.size
-    return location['x'] + size['width'] // 2, location['y'] + size['height'] // 2
+    return location["x"] + size["width"] // 2, location["y"] + size["height"] // 2
 
 
 class Tap:
@@ -24,14 +26,11 @@ class Tap:
         actor.attempts_to(Tap(LoginScreen.login_button))
     """
 
-    def __init__(
-        self,
-        target: Target
-    ) -> None:
+    def __init__(self, target: Target) -> None:
         self.target = target
 
     def describe(self) -> str:
-        return f'Taps on the {self.target}.'
+        return f"Taps on the {self.target}."
 
     def perform(self, actor: Actor) -> None:
         driver = actor.get_ability(UsePhone).driver

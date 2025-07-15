@@ -10,4 +10,6 @@ class TaskFactory:
         try:
             return task_registry.get(key, **kwargs)
         except KeyError as exc:
-            raise ValueError(f"No Task registered with name {task_type.__name__} on platform: {platform}") from exc
+            raise ValueError(
+                f"No Task registered with name {task_type.__name__} on platform: {platform}"
+            ) from exc

@@ -1,9 +1,12 @@
 from typing import Optional
-from pydantic import BaseModel, Field
+
+from pydantic import BaseModel
+from pydantic import Field
 
 
 class BaseName(BaseModel):
     """Base name model with common fields and validation."""
+
     given_name: str = Field(..., description="First/given name")
     family_name: str = Field(..., description="Last/family name")
     additional_name: Optional[str] = None

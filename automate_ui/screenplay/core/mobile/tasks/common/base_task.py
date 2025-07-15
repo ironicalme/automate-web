@@ -1,4 +1,6 @@
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
+
 from automate_ui.screenplay.core.actor import Actor
 
 

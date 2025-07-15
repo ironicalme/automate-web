@@ -1,7 +1,9 @@
 from automate_ui.screenplay.core.actor import Actor
 from automate_ui.screenplay.core.matchers.is_equal_to import IsEqualTo
+from automate_ui.screenplay.core.mobile.questions.targets_attribute import (
+    TargetsAttribute,
+)
 from automate_ui.screenplay.core.mobile.target import Target
-from automate_ui.screenplay.core.mobile.questions.targets_attribute import TargetsAttribute
 from automate_ui.screenplay.core.mobile.tasks.type_text import TypeText
 from automate_ui.screenplay.core.ui.tasks.wait import Wait
 
@@ -29,5 +31,5 @@ class Pick:
             TypeText(self.value).into_the(self.target),
             Wait()
             .until(TargetsAttribute(self.target, "value"), IsEqualTo(self.value))
-            .after_failed_attempt(TypeText(self.value).into_the(self.target))
+            .after_failed_attempt(TypeText(self.value).into_the(self.target)),
         )

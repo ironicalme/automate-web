@@ -1,0 +1,2 @@
+isort ./tests ./automate_ui
+black ./tests ./automate_ui
