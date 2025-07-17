@@ -1,6 +1,6 @@
 # Automate-UI
 
-A comprehensive framework for automating Web and Mobile UI testing using the Screenplay pattern. This framework provides a clean, maintainable approach to writing automated tests with support for both web browsers (via Playwright) and mobile devices (via Appium).
+A comprehensive framework for automating Web, API and Mobile UI testing using the Screenplay pattern. This framework provides a clean, maintainable approach to writing automated tests with support for both web browsers and API (via Playwright) and mobile devices (via Appium).
 
 ## Features
 
